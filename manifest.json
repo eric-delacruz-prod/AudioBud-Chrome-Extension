@@ -10,7 +10,6 @@
     "declarativeContent",
     "storage",
     "tabs",
-    "tabCapture",
     "notifications"],
 
   "icons": {

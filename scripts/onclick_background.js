@@ -2,23 +2,12 @@ let active = false;
 let sampleTrack = new Audio('misc/Bon Iver - Blood Bank_Proxy.mp3');
 var background = {
   init: function() {
-    chrome.browserAction.onClicked.addListener(background.onClick);
+    //chrome.browserAction.onClicked.addListener(background.onClick);
     chrome.runtime.onMessage.addListener(background.onMessage);
+    chrome.runtime.onConnect.addListener(background.onClick);
   },
-  onClick: function(tab) {
+  onClick: function(port) {
     if(active == false) {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.executeScript(
-                tab.id,
-                {code: 'document.body.style.backgroundColor = "#777777";'});
-
-                //sampleTrack.play();
-
-                //got background.current from Douille, not sure if accurate
-                //trying to get current tabid
-                //chrome.runtime.sendMessage({message:"start"});
-                active = true;
-        });
         var audioCtx = new AudioContext();
         chrome.tabCapture.capture({
           audio : true,
@@ -35,6 +24,19 @@ var background = {
           var bufferLength = analyserNode.frequencyBinCount;
           var dataArray = new Uint8Array(bufferLength);
           console.log("wat");
+
+          function draw() {
+            analyserNode.getByteTimeDomainData(dataArray);
+            port.postMessage({data: dataArray, bufferLength: bufferLength});
+          };
+
+          var intv = setInterval(function(){ draw() }, 1000 / 30);
+          port.onDisconnect.addListener(function() {
+            clearInterval(intv);
+            audioCtx.close();
+            stream.getAudioTracks()[0].stop();
+          });
+
         })
     }
     else {
