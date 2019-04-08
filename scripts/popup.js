@@ -33,7 +33,7 @@ port.onMessage.addListener(function(msg) {
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   canvasCtx.lineWidth = 2;
   canvasCtx.beginPath();
-  var sliceWoidth = WIDTH * 1.0 / bufferLength;
+  var sliceWidth = WIDTH * 1.0 / bufferLength;
   var x = 0;
 
   for(var i=0 ; i < bufferLength; i++)
@@ -41,7 +41,7 @@ port.onMessage.addListener(function(msg) {
     var data = dataArray[i];
     var v =data / 128.0;
     var y = v * HEIGHT/2;
-    
+
     var r = data + 120;
     var g = 255- data;
     var b = data / 3;
@@ -55,7 +55,7 @@ port.onMessage.addListener(function(msg) {
       canvasCtx.lineTo(x,y);
     }
     x += sliceWidth;
-  
+
   }
   canvasCtx.lineTo(canvas.width, canvas.height/2);
   canvasCtx.stroke();
