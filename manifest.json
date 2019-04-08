@@ -8,6 +8,8 @@
     "activeTab",
     "declarativeContent",
     "storage",
+    "tabs",
+    "tabCapture",
     "notifications"],
 
   "icons": {
@@ -24,7 +26,8 @@
       "48": "images/AudioBud48.png",
       "128": "images/AudioBud128.png"
     },
-    "default_title": "AudioBud"
+    "default_title": "AudioBud",
+    "default_popup": "html/popup.html"
   },
 
   "background": {
@@ -36,7 +39,7 @@
 		{
 			"matches": ["<all_urls>"],
 			"js": [
-				"scripts/content.js"
+				"scripts/popup.js"
 			]
 		}
 	]

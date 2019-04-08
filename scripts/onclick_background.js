@@ -12,13 +12,30 @@ var background = {
                 tab.id,
                 {code: 'document.body.style.backgroundColor = "#777777";'});
 
-                sampleTrack.play();
+                //sampleTrack.play();
 
                 //got background.current from Douille, not sure if accurate
                 //trying to get current tabid
-                chrome.runtime.sendMessage({message:"start"});
+                //chrome.runtime.sendMessage({message:"start"});
                 active = true;
         });
+        var audioCtx = new AudioContext();
+        chrome.tabCapture.capture({
+          audio : true,
+          video : false
+        }, function(stream) {
+          console.log("fjfjasldkjfasejdf");
+          var audioSourceNode = audioCtx.createMediaStreamSource(stream);
+          var analyserNode = audioCtx.createAnalyser();
+          audioSourceNode.connect(analyserNode);
+          analyserNode.connect(audioCtx.destination);
+
+          analyserNode.fftSize = 1024;
+          console.log("ayylmao");
+          var bufferLength = analyserNode.frequencyBinCount;
+          var dataArray = new Uint8Array(bufferLength);
+          console.log("wat");
+        })
     }
     else {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -26,7 +43,7 @@ var background = {
                 tab.id,
                 {code: 'document.body.style.backgroundColor = "#000000";'});
 
-                sampleTrack.pause();
+                //sampleTrack.pause();
 
                 active = false;
         });

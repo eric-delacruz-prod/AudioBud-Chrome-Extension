@@ -10,7 +10,10 @@ act.onclick = function() {
         console.log("BGcolor Changed")
   });
 };*/
-chrome.tabs.query({active:true},function(tabs) {
+/*chrome.tabs.query({active:true},function(tabs) {
   console.log(tabs);
   chrome.runtime.sendMessage({message:"start",data:tabs[0]});
-})
+})*/
+
+canvas = document.getElementById('visualizer');
+canvasCtx = canvas.getContext("2d");
