@@ -18,11 +18,11 @@ var background = {
                 //trying to get current tabid
                 chrome.runtime.sendMessage({message:"start"});
                 active = true;
-                var audioCtx = new (window.AudioConetext)();
-                chrome.tabCapture.capture({
-                  audio : true,
-                  video : false
-                },
+        });
+        var audioCtx = new (window.AudioConetext)();
+        chrome.tabCapture.capture({
+          audio : true,
+          video : false
         });
     }
     else {
