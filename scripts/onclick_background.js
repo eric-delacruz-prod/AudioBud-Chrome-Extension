@@ -18,6 +18,11 @@ var background = {
                 //trying to get current tabid
                 chrome.runtime.sendMessage({message:"start"});
                 active = true;
+                var audioCtx = new (window.AudioConetext)();
+                chrome.tabCapture.capture({
+                  audio : true,
+                  video : false
+                },
         });
     }
     else {
@@ -34,7 +39,8 @@ var background = {
   },
   onMessage: function(message, sender, response) {
     console.log("please fo rthe lvoe of god work");
-    if (message.message == "start") {
+    if (message.message === "start") {
+      
     }
   }
 

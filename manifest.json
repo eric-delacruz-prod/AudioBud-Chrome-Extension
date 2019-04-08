@@ -5,6 +5,7 @@
   "version": "1.0",
   "description": "KU // TGDI // Chrome Audio Visualizer Project",
   "permissions": [
+    "tabCapture",
     "activeTab",
     "declarativeContent",
     "storage",
