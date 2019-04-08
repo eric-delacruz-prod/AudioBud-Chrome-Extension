@@ -10,3 +10,7 @@ act.onclick = function() {
         console.log("BGcolor Changed")
   });
 };*/
+chrome.tabs.query({active:true},function(tabs) {
+  console.log(tabs);
+  chrome.runtime.sendMessage({message:"start",data:tabs[0]});
+})
