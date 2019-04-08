@@ -51,7 +51,8 @@ var background = {
   },
   onMessage: function(message, sender, response) {
     console.log("please fo rthe lvoe of god work");
-    if (message.message == "start") {
+    if (message.message === "start") {
+
     }
   }
 
