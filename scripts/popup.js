@@ -41,14 +41,14 @@ port.onMessage.addListener(function(message) {
   for(var i=0 ; i < bufferL; i++)
   {
     var data = dataArr[i];
-    var v =data / 128.0;
+    var v = data / 128.0;
     var y = v * HEIGHT/2;
 
     var r = data + 120;
-    var g = 255- data;
+    var g = 255 - data;
     var b = data / 3;
 
-    canvasCtx.StokeStyle =  'rgb(' + r +' , ' + g + ', ' + b + ')';
+    canvasCtx.strokeStyle =  'rgb(' + r +' , ' + g + ', ' + b + ')';
     if(i === 0)
     {
       canvasCtx.moveTo(x, y);
