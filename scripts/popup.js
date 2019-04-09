@@ -29,7 +29,7 @@ port.onMessage.addListener(function(message) {
   var dataArr = message.data;
   var bufferL = message.bufferLength;
 
-  canvasCtx.fillStyle = 'rgb(242, 242, 242)';
+  canvasCtx.fillStyle = 'rgb(50, 50, 70)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   canvasCtx.lineWidth = 2;
   canvasCtx.beginPath();
@@ -44,9 +44,9 @@ port.onMessage.addListener(function(message) {
     var v = data / 128.0;
     var y = v * HEIGHT/2;
 
-    var r = data + 120;
-    var g = 255 - data;
-    var b = data / 3;
+    var r = 300 - data;
+    var g = 185;
+    var b = 225;
 
     canvasCtx.strokeStyle =  'rgb(' + r +' , ' + g + ', ' + b + ')';
     if(i === 0)
