@@ -31,7 +31,7 @@ port.onMessage.addListener(function(message) {
 
   canvasCtx.fillStyle = 'rgb(50, 50, 70)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-  canvasCtx.lineWidth = 2;
+  canvasCtx.lineWidth = 1;
   canvasCtx.beginPath();
 
   var LineWidth = WIDTH * 1.0 / bufferL;
@@ -41,12 +41,17 @@ port.onMessage.addListener(function(message) {
   for(var i=0 ; i < bufferL; i++)
   {
     var data = dataArr[i];
+   
     var v = data / 128.0;
     var y = v * HEIGHT/2;
 
     var r = 300 - data;
     var g = 185;
     var b = 225;
+
+    //random Linewidth 
+    var numarr=[1,2,3,4,10];
+    canvasCtx.lineWidth = numarr[Math.floor(Math.random()*numarr.length)];  
 
     canvasCtx.strokeStyle =  'rgb(' + r +' , ' + g + ', ' + b + ')';
     if(i === 0)
@@ -55,9 +60,10 @@ port.onMessage.addListener(function(message) {
     }
     else{
       canvasCtx.lineTo(x,y);
+      
     }
     x += LineWidth;
-
+  
   }
   canvasCtx.lineTo(canvas.width, canvas.height/2);
   canvasCtx.stroke();
