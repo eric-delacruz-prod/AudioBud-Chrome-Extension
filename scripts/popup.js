@@ -27,7 +27,7 @@ port.onMessage.addListener(function (message) {
   canvasContext.beginPath();
 
   //thiccness of our line
-  var LineWidth = WIDTH * 1.0 / bufferL;
+  var LineWidth = WIDTH / bufferL;
 
   var x = 0;
 
@@ -35,8 +35,8 @@ port.onMessage.addListener(function (message) {
     //Don't combine the next two lines of code (things break idk)
     var data = dataArr[i];
     //divide by 128 to get centered vertically
-    var v = data / 128.0;
-    var y = v * HEIGHT / 2;
+    var v = (data * HEIGHT);
+    var y = v/100;
 
     var r = 300 - data;
     var g = 185;
@@ -44,19 +44,18 @@ port.onMessage.addListener(function (message) {
 
     //random Linewidth
     var numarr = [1, 2, 3, 4, 10];
-    canvasContext.lineWidth = numarr[Math.floor(Math.random() * numarr.length)];
+    canvasContext.lineWidth = LineWidth;
 
-    canvasContext.strokeStyle = 'rgb(' + r + ' , ' + g + ', ' + b + ')';
-    if (i === 0) {
-      canvasContext.moveTo(x, y);
-    }
-    else {
-      canvasContext.lineTo(x, y);
+    canvasContext.fillStyle = 'rgb(' + r + ' , ' + g + ', ' + b + ')';
+    
+    //canvasContext.lineTo(x, y);
 
-    }
+    canvasContext.fillRect(x,HEIGHT-v,LineWidth,v)
+
+    
     x += LineWidth;
 
   }
-  canvasContext.lineTo(canvas.width, canvas.height / 2);
+  canvasContext.lineTo(canvas.width, canvas.height*2);
   canvasContext.stroke();
 })
