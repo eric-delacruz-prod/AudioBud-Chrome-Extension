@@ -19,26 +19,26 @@ console.log("aaaaaaaaaaaah");
 canvas = document.getElementById('visualizer');
 canvasCtx = canvas.getContext("2d");
 
-var WIDTH = 300;
-var HEIGHT = 300;
+var WIDTH = 500;
+var HEIGHT = 500;
 console.log("aaaaaaaaaaaah");
 var port = chrome.runtime.connect();
 port.postMessage({action: 'start'});
 
-port.onMessage.addListener(function(msg) {
-  var dataArray = msg.data;
-  var bufferLength = msg.bufferLength;
+port.onMessage.addListener(function(message) {
+  var data = message.data;
+  var bufferL = message.bufferLength;
 
   canvasCtx.fillStyle = 'rgb(242, 242, 242)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   canvasCtx.lineWidth = 2;
   canvasCtx.beginPath();
-  var sliceWoidth = WIDTH * 1.0 / bufferLength;
+  var sliceWidth = WIDTH * 1.0 / bufferL;
   var x = 0;
 
-  for(var i=0 ; i < bufferLength; i++)
+  for(var i=0 ; i < bufferL; i++)
   {
-    var data = dataArray[i];
+    var data = data[i];
     var v =data / 128.0;
     var y = v * HEIGHT/2;
     
