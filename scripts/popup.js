@@ -26,22 +26,24 @@ var port = chrome.runtime.connect();
 port.postMessage({action: 'start'});
 
 port.onMessage.addListener(function(message) {
-  var data = message.data;
+  var dataArr = message.data;
   var bufferL = message.bufferLength;
 
   canvasCtx.fillStyle = 'rgb(242, 242, 242)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   canvasCtx.lineWidth = 2;
   canvasCtx.beginPath();
-  var sliceWidth = WIDTH * 1.0 / bufferL;
+
+  var LineWidth = WIDTH * 1.0 / bufferL;
+
   var x = 0;
 
   for(var i=0 ; i < bufferL; i++)
   {
-    var data = data[i];
+    var data = dataArr[i];
     var v =data / 128.0;
     var y = v * HEIGHT/2;
-    
+
     var r = data + 120;
     var g = 255- data;
     var b = data / 3;
@@ -54,8 +56,8 @@ port.onMessage.addListener(function(message) {
     else{
       canvasCtx.lineTo(x,y);
     }
-    x += sliceWidth;
-  
+    x += LineWidth;
+
   }
   canvasCtx.lineTo(canvas.width, canvas.height/2);
   canvasCtx.stroke();
