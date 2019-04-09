@@ -5,11 +5,13 @@
 
 
 var background = {
+  //Initializes listeners
   init: function () {
     //Use the chrome.runtime API
     chrome.runtime.onMessage.addListener(background.onMessage);
     chrome.runtime.onConnect.addListener(background.onConnect);
   },
+  //Runs audio capturing code when popup.js runs chrome.runtime.connect()
   onConnect: function (port) {
 
     //Creates an AudioContext object representing an audio-processing graph
@@ -23,7 +25,6 @@ var background = {
         video: false
       },
       function (stream) {
-        console.log("fjfjasldkjfasejdf");
         //stream is a 'MediaStream' that is our audio source
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
         //Creates an analyserNode (hence its name)
@@ -39,15 +40,13 @@ var background = {
         //fftSize:=Fast Fourier Transform
         //Basically specifies the resolution
         //Power of 2, spans 32->32768
-        analyserNode.fftSize = 16384;
-        console.log("ayylmao");
+        analyserNode.fftSize = 1024;
         //this buffer is always half the fftSize
         //This is to do with FFT definition, don't adjust here.
         var buffer = analyserNode.frequencyBinCount;
         //Data array of the buffer
         //This is our information we are to display
         var data = new Uint8Array(buffer);
-        console.log("wat");
 
         //We draw an oscilloscope reading of the audio
         function draw() {
