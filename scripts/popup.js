@@ -1,20 +1,3 @@
-/*let act = document.getElementById('act');
-
-
-act.onclick = function() {
-    console.log("act pressed")
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "#6bdcfe";'});
-        console.log("BGcolor Changed")
-  });
-};*/
-/*chrome.tabs.query({active:true},function(tabs) {
-  console.log(tabs);
-  chrome.runtime.sendMessage({message:"start",data:tabs[0]});
-})*/
-
 //Uses the canvas API
 //Pretty straightforward, makes drawing to screen simple
 //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
@@ -34,9 +17,9 @@ var port = chrome.runtime.connect();
 
 //Sends the message 'start' to onclick_background
 //Message doesn't matter, we just want the message to go through.
-port.postMessage({action: 'start'});
+port.postMessage({ action: 'start' });
 
-port.onMessage.addListener(function(message) {
+port.onMessage.addListener(function (message) {
   //from onclick_background
   var dataArr = message.data;
   var bufferL = message.bufferLength;
@@ -54,34 +37,32 @@ port.onMessage.addListener(function(message) {
 
   var x = 0;
 
-  for(var i=0 ; i < bufferL; i++)
-  {
+  for (var i = 0; i < bufferL; i++) {
     //Don't combine the next two lines of code (things break idk)
     var data = dataArr[i];
     //divide by 128 to get centered vertically
     var v = data / 128.0;
-    var y = v * HEIGHT/2;
+    var y = v * HEIGHT / 2;
 
     var r = 300 - data;
     var g = 185;
     var b = 225;
 
     //random Linewidth
-    var numarr=[1,2,3,4,10];
-    canvasContext.lineWidth = numarr[Math.floor(Math.random()*numarr.length)];
+    var numarr = [1, 2, 3, 4, 10];
+    canvasContext.lineWidth = numarr[Math.floor(Math.random() * numarr.length)];
 
-    canvasContext.strokeStyle =  'rgb(' + r +' , ' + g + ', ' + b + ')';
-    if(i === 0)
-    {
+    canvasContext.strokeStyle = 'rgb(' + r + ' , ' + g + ', ' + b + ')';
+    if (i === 0) {
       canvasContext.moveTo(x, y);
     }
-    else{
-      canvasContext.lineTo(x,y);
+    else {
+      canvasContext.lineTo(x, y);
 
     }
     x += LineWidth;
 
   }
-  canvasContext.lineTo(canvas.width, canvas.height/2);
+  canvasContext.lineTo(canvas.width, canvas.height / 2);
   canvasContext.stroke();
 })
