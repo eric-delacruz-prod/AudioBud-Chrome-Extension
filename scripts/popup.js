@@ -12,6 +12,13 @@ var HEIGHT = 250;
 //This line will connect to onclick_background.js
 var port = chrome.runtime.connect();
 //Runs when message is received from onclick_background.js with data from stream
+
+
+/**
+ *
+ * @constructor
+ * @param {var} message
+ */
 port.onMessage.addListener(function (message) {
   //from onclick_background
   var dataArr = message.data;
@@ -34,7 +41,7 @@ port.onMessage.addListener(function (message) {
     //Don't combine the next two lines of code (things break idk)
     var data = dataArr[i];
     console.log(dataArr);
-    
+
     var v = (data*HEIGHT)/2.0;
     var y = v/128.0;
 
@@ -45,10 +52,10 @@ port.onMessage.addListener(function (message) {
     canvasContext.lineWidth = LineWidth;
 
     canvasContext.fillStyle = 'rgb(' + r + ' , ' + g + ', ' + b + ')';
-    
+
     canvasContext.fillRect(x,HEIGHT-y/2.0,LineWidth,y)
 
-    x += LineWidth; 
+    x += LineWidth;
 
   }
   //canvasContext.lineTo(canvas.width, canvas.height*2);
