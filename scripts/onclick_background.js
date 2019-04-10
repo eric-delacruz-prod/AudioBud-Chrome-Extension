@@ -40,7 +40,7 @@ var background = {
         //fftSize:=Fast Fourier Transform
         //Basically specifies the resolution
         //Power of 2, spans 32->32768
-        analyserNode.fftSize = 1024;
+        analyserNode.fftSize = 2048;
         //this buffer is always half the fftSize
         //This is to do with FFT definition, don't adjust here.
         var buffer = analyserNode.frequencyBinCount;
