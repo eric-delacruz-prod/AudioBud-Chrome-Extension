@@ -40,7 +40,8 @@ var background = {
         //fftSize:=Fast Fourier Transform
         //Basically specifies the resolution
         //Power of 2, spans 32->32768
-        analyserNode.fftSize = 2048;
+        var dataResolution = 1024;
+        analyserNode.fftSize = dataResolution;
         //this buffer is always half the fftSize
         //This is to do with FFT definition, don't adjust here.
         var buffer = analyserNode.frequencyBinCount;
@@ -50,7 +51,10 @@ var background = {
 
         //We draw an oscilloscope reading of the audio
         function draw() {
-          analyserNode.getByteTimeDomainData(data);
+
+          //The buffer array has a length of dataResolution
+          //And the values are between 0 and 255
+          analyserNode.getByteFrequencyData(data);
           //This line sends the data to popup.js
           //The data "enters" popup.js at this line
           // port.onMessage.addListener(function(message)

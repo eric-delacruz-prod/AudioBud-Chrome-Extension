@@ -7,8 +7,8 @@ canvas = document.getElementById('visualizer');
 //Obvi we are rendering 2d
 canvasContext = canvas.getContext("2d");
 
-var WIDTH = 500;
-var HEIGHT = 250;
+var WIDTH = canvas.width;
+var HEIGHT = canvas.height;
 //This line will connect to onclick_background.js
 var port = chrome.runtime.connect();
 //Runs when message is received from onclick_background.js with data from stream
@@ -24,36 +24,47 @@ port.onMessage.addListener(function (message) {
   var dataArr = message.data;
   var bufferL = message.bufferLength;
 
-  canvasContext.fillStyle = 'rgb(255, 255, 255)';
-  canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
-  canvasContext.lineWidth = 1;
+  //thiccness of our line
+  var LineWidth = WIDTH*2 / bufferL
+
+
+  canvasContext.fillStyle = 'rgb(0, 0, 0)';
+  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+  canvasContext.lineWidth = LineWidth;
 
   //We draw the canvas like a long brush stroke.
   //This lets the canvas know we are ready to draw.
   canvasContext.beginPath();
 
-  //thiccness of our line
-  var LineWidth = WIDTH / bufferL;
-
   var x = 0;
   var max = 0;
-  for (var i = 0; i < bufferL; i++) {
+  //I have the array starting at 4 because the lower frequencies
+  //always seem to be maxing out and I think it looks bad.
+  for (var i = 4; i < bufferL; i=i+2) {
     //Don't combine the next two lines of code (things break idk)
     var data = dataArr[i];
-    console.log(dataArr);
 
-    var v = (data*HEIGHT)/2.0;
-    var y = v/128.0;
+    // 0 <= data <= 255
+    // so, right now height is 250px
+    // dataMaxValue = 255*250 == 63750
+    // if we divide by 128 we get 498
+    // Should be getting 250, so divide by 256
+
+    var v = (data*HEIGHT);
+    var y = v/256
 
     var r = 300 - data;
     var g = 185;
     var b = 225;
 
-    canvasContext.lineWidth = LineWidth;
 
     canvasContext.fillStyle = 'rgb(' + r + ' , ' + g + ', ' + b + ')';
 
-    canvasContext.fillRect(x,HEIGHT-y/2.0,LineWidth,y)
+    // x is the x coordinate of upper left corner
+    // HEIGHT-y/2.0 is the y coordinate of upper left corner
+    // LineWidth is the width of the rect in pix
+    // and y is the height of the rect in pix
+    canvasContext.fillRect(x,HEIGHT-y,LineWidth,y)
 
     x += LineWidth;
 
