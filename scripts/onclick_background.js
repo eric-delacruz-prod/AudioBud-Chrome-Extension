@@ -13,7 +13,6 @@ var background = {
   },
   //Runs audio capturing code when popup.js runs chrome.runtime.connect()
   onConnect: function (port) {
-
     //Creates an AudioContext object representing an audio-processing graph
     var audioContext = new AudioContext();
     //First parameter of .capture specifies what type of
@@ -32,22 +31,25 @@ var background = {
         //Creates a biquadFilter
         var filter = audioContext.createBiquadFilter();
 
-
-
         filter.type = "lowpass";
-        filter.frequency.value = 250;
+        filter.frequency.value = 440;
         filter.Q.value = 10;
         filter.gain.value = -3;
 
+
         audioSourceNode.connect(filter);
 
+        //Need to figure out a way to dynamically change this value
+        var selectedFilter = 1;
 
-
-        //destination is the final destination of the audio. So
-        //we connect because it only makes sense to display the
-        //sound which actually reaches the users ears.
-        filter.connect(analyserNode);
-        filter.connect(audioContext.destination);
+        if(selectedFilter===0){
+          audioSourceNode.connect(analyserNode);
+          audioSourceNode.connect(audioContext.destination);
+        }
+        else {
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
 
         //this sets the range
         //too low and the bars start capping out

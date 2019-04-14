@@ -12,8 +12,6 @@ var HEIGHT = canvas.height;
 //This line will connect to onclick_background.js
 var port = chrome.runtime.connect();
 //Runs when message is received from onclick_background.js with data from stream
-
-
 /**
  *
  * @constructor
