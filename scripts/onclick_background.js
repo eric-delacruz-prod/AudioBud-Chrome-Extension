@@ -29,15 +29,28 @@ var background = {
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
         //Creates an analyserNode (hence its name)
         var analyserNode = audioContext.createAnalyser();
+        //Creates a biquadFilter
+        var filter = audioContext.createBiquadFilter();
 
-        audioSourceNode.connect(analyserNode);
+
+
+        filter.type = "lowpass";
+        filter.frequency.value = 250;
+        filter.Q.value = 10;
+        filter.gain.value = -3;
+
+        audioSourceNode.connect(filter);
+
+
+
         //destination is the final destination of the audio. So
         //we connect because it only makes sense to display the
         //sound which actually reaches the users ears.
-        analyserNode.connect(audioContext.destination);
+        filter.connect(analyserNode);
+        filter.connect(audioContext.destination);
 
         //this sets the range
-        //too low and the bars start capping out 
+        //too low and the bars start capping out
         analyserNode.maxDecibels = -20
 
         //fftSize:=Fast Fourier Transform
