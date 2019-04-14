@@ -25,7 +25,7 @@ port.onMessage.addListener(function (message) {
   var bufferL = message.bufferLength;
 
   //thiccness of our line
-  var LineWidth = WIDTH*2 / bufferL
+  var LineWidth = WIDTH / bufferL
 
 
   canvasContext.fillStyle = 'rgb(0, 0, 0)';
@@ -40,18 +40,16 @@ port.onMessage.addListener(function (message) {
   var max = 0;
   //I have the array starting at 4 because the lower frequencies
   //always seem to be maxing out and I think it looks bad.
-  for (var i = 4; i < bufferL; i=i+2) {
+  for (var i = 0; i < bufferL; i++) {
     //Don't combine the next two lines of code (things break idk)
     var data = dataArr[i];
 
     // 0 <= data <= 255
     // so, right now height is 250px
-    // dataMaxValue = 255*250 == 63750
-    // if we divide by 128 we get 498
-    // Should be getting 250, so divide by 256
-
-    var v = (data*HEIGHT);
-    var y = v/256
+    // Need to normalize the range
+    // And then we span the height
+    var v = (data)/255
+    var y = v*HEIGHT
 
     var r = 300 - data;
     var g = 185;

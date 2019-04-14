@@ -36,11 +36,14 @@ var background = {
         //sound which actually reaches the users ears.
         analyserNode.connect(audioContext.destination);
 
+        //this sets the range
+        //too low and the bars start capping out 
+        analyserNode.maxDecibels = -20
 
         //fftSize:=Fast Fourier Transform
         //Basically specifies the resolution
         //Power of 2, spans 32->32768
-        var dataResolution = 1024;
+        var dataResolution = 512;
         analyserNode.fftSize = dataResolution;
         //this buffer is always half the fftSize
         //This is to do with FFT definition, don't adjust here.
