@@ -33,14 +33,14 @@ var background = {
 
         filter.type = "lowpass";
         filter.frequency.value = 440;
-        filter.Q.value = 10;
-        filter.gain.value = -3;
+        filter.Q.value = 1;
+        filter.gain.value = -6;
 
 
         audioSourceNode.connect(filter);
 
         //Need to figure out a way to dynamically change this value
-        var selectedFilter = 1;
+        var selectedFilter = 0;
 
         if(selectedFilter===0){
           audioSourceNode.connect(analyserNode);

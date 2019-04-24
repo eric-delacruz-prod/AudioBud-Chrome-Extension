@@ -30,6 +30,8 @@
     "default_popup": "html/popup.html"
   },
 
+  "options_page": "html/options.html",
+
   "background": {
 		"scripts": ["scripts/onclick_background.js"],
 		"persistent": false
