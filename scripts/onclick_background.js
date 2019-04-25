@@ -2,8 +2,6 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
-
-
 var background = {
   //Initializes listeners
   init: function () {
