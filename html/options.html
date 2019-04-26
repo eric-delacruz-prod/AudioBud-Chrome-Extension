@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head><title>My Test Extension Options</title></head>
+<head><title>AudioBud Option Menu</title></head>
 <body>
 
-Favorite color:
-<select id="color">
- <option value="red">red</option>
- <option value="green">green</option>
- <option value="blue">blue</option>
- <option value="yellow">yellow</option>
+Filter:
+<select id="filter">
+ <option value="lowpass">lowpass</option>
+ <option value="highpass">highpass</option>
+ <option value="bandpass">bandpass</option>
+ <option value="lowshelf">lowshelf</option>
+ <option value="highshelf">highshelf</option>
+ <option value="peaking">peaking</option>
+ <option value="notch">notch</option>
+ <option value="allpass">allpass</option>
 </select>
-
 <label>
-  <input type="checkbox" id="like">
-  I like colors.
+  <input type="checkbox" id="enable">
+  Disable Filters
 </label>
 
 <div id="status"></div>
