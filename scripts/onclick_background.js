@@ -31,26 +31,81 @@ var background = {
         //Creates a biquadFilter
         var filter = audioContext.createBiquadFilter();
 
-        filter.type = "lowpass";
-        filter.frequency.value = 440;
-        filter.Q.value = 1;
-        filter.gain.value = -6;
-
+        var selectedFilter    = 0;
+        var selectedFrequency = 440;
+        var selectedQValue    = 1;
+        var selectedGain      = -6;
 
         audioSourceNode.connect(filter);
-
-        //Need to figure out a way to dynamically change this value
-        var selectedFilter = 0;
 
         if(selectedFilter===0){
           audioSourceNode.connect(analyserNode);
           audioSourceNode.connect(audioContext.destination);
         }
-        else {
+        else if(selectedFilter===1){
+          filter.type = "lowpass";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
           filter.connect(analyserNode);
           filter.connect(audioContext.destination);
         }
-
+        else if(selectedFilter===2){
+          filter.type = "highpass";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===3){
+          filter.type = "bandpass";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===4){
+          filter.type = "lowshelf";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===5){
+          filter.type = "highshelf";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===6){
+          filter.type = "peaking";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===7){
+          filter.type = "notch";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
+        else if(selectedFilter===8){
+          filter.type = "allpass";
+          filter.frequency.value = selectedFrequency;
+          filter.Q.value = selectedQValue;
+          filter.gain.value = selectedGain;
+          filter.connect(analyserNode);
+          filter.connect(audioContext.destination);
+        }
         //this sets the range
         //too low and the bars start capping out
         analyserNode.maxDecibels = -20
