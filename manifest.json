@@ -26,21 +26,11 @@
       "48": "images/AudioBud48.png",
       "128": "images/AudioBud128.png"
     },
-    "default_title": "AudioBud",
-    "default_popup": "html/popup.html"
+    "default_title": "AudioBud"
   },
 
   "background": {
-		"scripts": ["scripts/onclick_background.js"],
+		"scripts": ["scripts/background.js"],
 		"persistent": false
-	},
-
-  "content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": [
-				"scripts/popup.js"
-			]
-		}
-	]
+	}
 }

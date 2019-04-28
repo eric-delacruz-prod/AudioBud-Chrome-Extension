@@ -2,8 +2,6 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
-
-
 var background = {
   //Initializes listeners
   init: function () {
@@ -40,7 +38,7 @@ var background = {
         audioSourceNode.connect(filter);
 
         //Need to figure out a way to dynamically change this value
-        var selectedFilter = 1;
+        var selectedFilter = 0;
 
         if(selectedFilter===0){
           audioSourceNode.connect(analyserNode);
@@ -82,7 +80,7 @@ var background = {
         //Determine how often we want to redraw the function
         //Second parameter (in ms) determines the interval.
         //1000 would be 1 second
-        var interval = setInterval(function () { draw() }, 1000 / 30);
+        var interval = setInterval(function () { draw() }, 10 );
 
         port.onDisconnect.addListener(function () {
           //close everything down so we can be good lil programmers
@@ -93,4 +91,9 @@ var background = {
       })
   }
 }
-background.init();
+
+chrome.browserAction.onClicked.addListener(background.init());
+
+chrome.browserAction.onClicked.addListener(function(activeTab) {
+  chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
+});
