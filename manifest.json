@@ -29,6 +29,8 @@
     "default_title": "AudioBud"
   },
 
+  "options_page": "html/options.html",
+
   "background": {
 		"scripts": ["scripts/background.js"],
 		"persistent": false
