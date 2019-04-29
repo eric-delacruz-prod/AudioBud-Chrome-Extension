@@ -6,11 +6,12 @@ var background = {
   //Initializes listeners
   init: function () {
     //Use the chrome.runtime API
-    chrome.runtime.onMessage.addListener(background.onMessage);
+    //chrome.runtime.onMessage.addListener(background.onMessage);
     chrome.runtime.onConnect.addListener(background.onConnect);
   },
   //Runs audio capturing code when popup.js runs chrome.runtime.connect()
   onConnect: function (port) {
+    myport = port;
     //Creates an AudioContext object representing an audio-processing graph
     var audioContext = new AudioContext();
     //First parameter of .capture specifies what type of
@@ -129,7 +130,8 @@ var background = {
           //This line sends the data to popup.js
           //The data "enters" popup.js at this line
           // port.onMessage.addListener(function(message)
-          port.postMessage({ data: data, bufferLength: buffer });
+          active = 1;
+          port.postMessage({ active: active, data: data, bufferLength: buffer });
         };
 
         //Determine how often we want to redraw the function
@@ -137,18 +139,33 @@ var background = {
         //1000 would be 1 second
         var interval = setInterval(function () { draw() }, 10 );
 
-        port.onDisconnect.addListener(function () {
+        myport.onDisconnect.addListener(function () {
           //close everything down so we can be good lil programmers
           clearInterval(interval);
           audioContext.close();
           stream.getAudioTracks()[0].stop();
         });
       })
-  }
+  },
+  call: function(port) {
+    active = 0;
+    myport.postMessage({active: active, data: null, bufferLength: null});
+  },
+  active: null,
+  myport: null,
 }
 
-chrome.browserAction.onClicked.addListener(background.init());
+var pressed;
 
 chrome.browserAction.onClicked.addListener(function(activeTab) {
-  chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
+  if(!Boolean(pressed)){
+    console.log("on press");
+    pressed = 1;
+    background.init()
+    chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
+  } else {
+    pressed = 0;
+    background.call()
+    console.log("off press");
+  }
 });

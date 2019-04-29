@@ -1,7 +1,10 @@
 var port = chrome.runtime.connect();
 var connected;
 console.log("Connected");
+
 port.onMessage.addListener(function(message) {
+    var active = message.active;
+    console.log(active);
     var dataArr = message.data;
     var bufferL = message.bufferLength; 
     if(!Boolean(connected)) {
@@ -25,6 +28,13 @@ port.onMessage.addListener(function(message) {
         audioCanvas.ctx = audioCanvas.getContext("2d");
         canvasContainer.appendChild(audioCanvas);
     } 
+    if(!Boolean(active)){
+        port.disconnect();
+        connected = 0;
+        canvasContainer.removeChild(audioCanvas);
+        document.body.removeChild(canvasContainer);
+
+    }
     var dataArr = message.data;
     var bufferL = message.bufferLength;
     var frame = requestAnimationFrame(function() {
@@ -41,8 +51,8 @@ port.onMessage.addListener(function(message) {
             var r = 300 - data;
             var g = 185;
             var b = 225;
-            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight*2) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
-            audioCanvas.ctx.fillRect(x,0,recWidth,recHeight*3.5);
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
+            audioCanvas.ctx.fillRect(x,0,recWidth,recHeight*2);
             x += recWidth;
         }
         audioCanvas.ctx.closePath();
