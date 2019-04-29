@@ -26,6 +26,11 @@
         video: false
       },
       function (stream) {
+        var selectedFilter    = "nofilter"
+        var selectedFrequency = 440;
+        var selectedQValue    = 1;
+        var selectedGain      = -6;
+
         //stream is a 'MediaStream' that is our audio source
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
         //Creates an analyserNode (hence its name)
@@ -33,74 +38,105 @@
         //Creates a biquadFilter
         var filter = audioContext.createBiquadFilter();
 
-        var selectedFilter    = "nofilter"
-        var selectedFrequency = 440;
-        var selectedQValue    = 1;
-        var selectedGain      = -6;
-
-        function update(){
-          console.log(selectedFilter);
-        }
-
-
         audioSourceNode.connect(filter);
 
-        if(selectedFilter==="nofilter"){
-          audioSourceNode.connect(analyserNode);
-          audioSourceNode.connect(audioContext.destination);
-        }
-        else if(selectedFilter==="lowpass"){
-          filter.type = "lowpass";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter==="highpass"){
-          filter.type = "highpass";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter==="bandpass"){
-          filter.type = "bandpass";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter==="lowshelf"){
-          filter.type = "lowshelf";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
+          function update(){
+          chrome.storage.sync.get(['filter'], function(result){
+            selectedFilter = result.filter;
+          });
+          filter.disconnect()
+          audioSourceNode.disconnect()
+
+          console.log(selectedFilter)
+          if(selectedFilter==="lowpass"){
+            audioSourceNode.connect(filter);
+            filter.type = "lowpass";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="highpass"){
+            audioSourceNode.connect(filter);
+            filter.type = "highpass";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="bandpass"){
+            audioSourceNode.connect(filter);
+            filter.type = "bandpass";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="lowshelf"){
+            audioSourceNode.connect(filter);
+            filter.type = "lowshelf";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="highshelf"){
+            audioSourceNode.connect(filter);
+            filter.type = "highshelf";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="peaking"){
+            audioSourceNode.connect(filter);
+            filter.type = "peaking";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          else if(selectedFilter==="notch"){
+            audioSourceNode.connect(filter);
+            filter.type = "notch";
+            filter.frequency.value = selectedFrequency;
+            filter.Q.value = selectedQValue;
+            filter.gain.value = selectedGain;
+            filter.connect(analyserNode);
+            filter.connect(audioContext.destination);
+          }
+          //all pass
+          else{
+            audioSourceNode.connect(analyserNode);
+            audioSourceNode.connect(audioContext.destination);
+          }
+          }
 
 
 
 
+          update()
+          //this sets the range
+          //too low and the bars start capping out
+          analyserNode.maxDecibels = -20
 
-        //this sets the range
-        //too low and the bars start capping out
-        analyserNode.maxDecibels = -20
-
-        //fftSize:=Fast Fourier Transform
-        //Basically specifies the resolution
-        //Power of 2, spans 32->32768
-        var dataResolution = 512;
-        analyserNode.fftSize = dataResolution;
-        //this buffer is always half the fftSize
-        //This is to do with FFT definition, don't adjust here.
-        var buffer = analyserNode.frequencyBinCount;
-        //Data array of the buffer
-        //This is our information we are to display
-        var data = new Uint8Array(buffer);
+          //fftSize:=Fast Fourier Transform
+          //Basically specifies the resolution
+          //Power of 2, spans 32->32768
+          var dataResolution = 512;
+          analyserNode.fftSize = dataResolution;
+          //this buffer is always half the fftSize
+          //This is to do with FFT definition, don't adjust here.
+          var buffer = analyserNode.frequencyBinCount;
+          //Data array of the buffer
+          //This is our information we are to display
+          var data = new Uint8Array(buffer);
 
 
         var countToWorkAroundSetInterval = 0;

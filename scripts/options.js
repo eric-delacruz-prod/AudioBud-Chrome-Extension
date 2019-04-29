@@ -1,6 +1,7 @@
 let page = document.getElementById('buttonDiv');
 
-const kFilters = ['lowpass', 'highpass', 'bandpass', 'nofilter'];
+const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
+                  'highshelf', 'peaking', 'notch', 'allpass'];
 
 function constructOptions(kButtonColors) {
  for (let item of kButtonColors) {
