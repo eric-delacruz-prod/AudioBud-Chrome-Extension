@@ -2,7 +2,10 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
-var background = {
+  var background = {
+
+
+
   //Initializes listeners
   init: function () {
     //Use the chrome.runtime API
@@ -30,18 +33,23 @@ var background = {
         //Creates a biquadFilter
         var filter = audioContext.createBiquadFilter();
 
-        var selectedFilter    = 0;
+        var selectedFilter    = "nofilter"
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
 
+        function update(){
+          console.log(selectedFilter);
+        }
+
+
         audioSourceNode.connect(filter);
 
-        if(selectedFilter===0){
+        if(selectedFilter==="nofilter"){
           audioSourceNode.connect(analyserNode);
           audioSourceNode.connect(audioContext.destination);
         }
-        else if(selectedFilter===1){
+        else if(selectedFilter==="lowpass"){
           filter.type = "lowpass";
           filter.frequency.value = selectedFrequency;
           filter.Q.value = selectedQValue;
@@ -49,7 +57,7 @@ var background = {
           filter.connect(analyserNode);
           filter.connect(audioContext.destination);
         }
-        else if(selectedFilter===2){
+        else if(selectedFilter==="highpass"){
           filter.type = "highpass";
           filter.frequency.value = selectedFrequency;
           filter.Q.value = selectedQValue;
@@ -57,7 +65,7 @@ var background = {
           filter.connect(analyserNode);
           filter.connect(audioContext.destination);
         }
-        else if(selectedFilter===3){
+        else if(selectedFilter==="bandpass"){
           filter.type = "bandpass";
           filter.frequency.value = selectedFrequency;
           filter.Q.value = selectedQValue;
@@ -65,7 +73,7 @@ var background = {
           filter.connect(analyserNode);
           filter.connect(audioContext.destination);
         }
-        else if(selectedFilter===4){
+        else if(selectedFilter==="lowshelf"){
           filter.type = "lowshelf";
           filter.frequency.value = selectedFrequency;
           filter.Q.value = selectedQValue;
@@ -73,38 +81,11 @@ var background = {
           filter.connect(analyserNode);
           filter.connect(audioContext.destination);
         }
-        else if(selectedFilter===5){
-          filter.type = "highshelf";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter===6){
-          filter.type = "peaking";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter===7){
-          filter.type = "notch";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
-        else if(selectedFilter===8){
-          filter.type = "allpass";
-          filter.frequency.value = selectedFrequency;
-          filter.Q.value = selectedQValue;
-          filter.gain.value = selectedGain;
-          filter.connect(analyserNode);
-          filter.connect(audioContext.destination);
-        }
+
+
+
+
+
         //this sets the range
         //too low and the bars start capping out
         analyserNode.maxDecibels = -20
@@ -121,9 +102,19 @@ var background = {
         //This is our information we are to display
         var data = new Uint8Array(buffer);
 
+
+        var countToWorkAroundSetInterval = 0;
         //We draw an oscilloscope reading of the audio
         function draw() {
 
+          // Calling update every time would be way too taxing on program.
+          if(countToWorkAroundSetInterval === 250){
+            update();
+            countToWorkAroundSetInterval = 0;
+          }
+          else {
+            countToWorkAroundSetInterval++;
+          }
           //The buffer array has a length of dataResolution
           //And the values are between 0 and 255
           analyserNode.getByteFrequencyData(data);

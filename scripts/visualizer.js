@@ -5,8 +5,9 @@ console.log("Connected");
 port.onMessage.addListener(function(message) {
     var active = message.active;
     console.log(active);
+
     var dataArr = message.data;
-    var bufferL = message.bufferLength; 
+    var bufferL = message.bufferLength;
     if(!Boolean(connected)) {
         connected = 1;
         canvasContainer = document.createElement('div');
@@ -27,7 +28,7 @@ port.onMessage.addListener(function(message) {
         audioCanvas.style.position = 'absolute';
         audioCanvas.ctx = audioCanvas.getContext("2d");
         canvasContainer.appendChild(audioCanvas);
-    } 
+    }
     if(!Boolean(active)){
         port.disconnect();
         connected = 0;
