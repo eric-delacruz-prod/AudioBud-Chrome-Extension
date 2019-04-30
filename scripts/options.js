@@ -4,12 +4,7 @@ const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
                   'highshelf', 'peaking', 'notch', 'allpass'];
 const kVisuals = ['TDs', 'RLs','LRs','LRRLs'];
 
-//Write default values, otherwise this may crash with infinite float error
-chrome.storage.sync.set({filter: 'allpass'}, function(){});
-chrome.storage.sync.set({frequency: 440}, function(){});
-chrome.storage.sync.set({Q: 1}, function(){});
-chrome.storage.sync.set({Gain: 0}, function(){});
-chrome.storage.sync.set({visuals: 'TDs'});
+
 
 function constructOptions(kButtonColors) {
  for (let item of kButtonColors) {
