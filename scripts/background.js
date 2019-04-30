@@ -109,7 +109,7 @@ const test1 = function() {
             //////TEST 1///////
             ///////////////////
             console.log("Test 1: initial filter test check if is 'allpass' ");
-            isPassed = false;
+            let isPassed = false;
             if (selectedFilter == "allpass" ) {
               isPassed = true;
             }
@@ -130,7 +130,7 @@ const test1 = function() {
             ///////////////////
             console.log("Test 3: initial QValue test ");
             isPassed = false;
-            if (selectedQValue    = 1 ) {
+            if (selectedQValue    == 1 ) {
               isPassed = true;
             }
             printResult(isPassed);
@@ -140,7 +140,7 @@ const test1 = function() {
             ///////////////////
             console.log("Test 4: initial Gain test ");
             isPassed = false;
-            if (selectedGain      = -6) {
+            if (selectedGain      == -6) {
               isPassed = true;
             }
             printResult(isPassed);
