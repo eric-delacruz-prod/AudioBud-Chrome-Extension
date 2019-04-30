@@ -1,11 +1,13 @@
 var port = chrome.runtime.connect();
 var connected;
-let visual;
-let count = 0;
-let testRun = false;
+
+var visual;
+var count = 0;
 console.log("Connected");
 
 port.onMessage.addListener(function(message) {
+
+  let testRun = false;
   chrome.storage.sync.get(['testRun'], function(result) {
     testRun = result.testRun;
   });
