@@ -40,8 +40,12 @@ const testTest = function() {
   }
   printResult("Test 1: Confirm testing suite is working", isPassed);
 }
-
+//
 const test1 = function() {
+
+}
+//
+const test2 = function(){
 
 }
 
