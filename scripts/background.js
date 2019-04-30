@@ -74,7 +74,7 @@ const printResult = function(isPassed) {
             ///////////////////
             console.log("Test 2: initial Frequency test ");
             isPassed = false;
-            if (selectedFrequency == 400 ) {
+            if (selectedFrequency == 440 ) {
               isPassed = true;
             }
             printResult(isPassed);
@@ -139,8 +139,6 @@ const printResult = function(isPassed) {
             selectedGain=40;
           else if(selectedGain<-40)
             selectedGain=-40;
-
-          console.log(selectedFrequency);
 
           filter.disconnect()
           audioSourceNode.disconnect()
