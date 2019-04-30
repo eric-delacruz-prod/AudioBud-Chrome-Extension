@@ -116,11 +116,31 @@ const test1 = function() {
             printResult(isPassed);
 
             ///////////////////
-            //////TEST 1///////
+            //////TEST 2///////
             ///////////////////
-            console.log("Test 1: initial filter test check if is 'allpass' ");
+            console.log("Test 2: initial Frequency test ");
             isPassed = false;
             if (selectedFrequency == 400 ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 3///////
+            ///////////////////
+            console.log("Test 3: initial QValue test ");
+            isPassed = false;
+            if (selectedQValue    = 1 ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 4///////
+            ///////////////////
+            console.log("Test 4: initial Gain test ");
+            isPassed = false;
+            if (selectedGain      = -6) {
               isPassed = true;
             }
             printResult(isPassed);
@@ -249,56 +269,12 @@ const test1 = function() {
           if (testRun == true) {
 
             ///////////////////
-            //////TEST 1///////
-            ///////////////////
-
-            console.log("Test 1: Confirm that frequency upper bound works");
-            let isPassed = false;
-            if (selectedFrequency <= 22050) {
-              isPassed = true;
-            }
-            printResult(isPassed);
-
-            ///////////////////
-            //////TEST 2///////
-            ///////////////////
-
-            console.log("Test 2: Confirm that frequency lower bound works");
-            isPassed = false;
-            if (selectedFrequency >= 10) {
-              isPassed = true;
-            }
-            printResult(isPassed);
-
-            ///////////////////
-            //////TEST 3///////
-            ///////////////////
-
-            console.log("Test 3: Confirm that QValue upper bound works");
-            isPassed = false;
-            if (selectedQValue <= 1000) {
-              isPassed = true;
-            }
-            printResult(isPassed);
-
-            ///////////////////
-            //////TEST 4///////
-            ///////////////////
-
-            console.log("Test 4: Confirm that QValue lower bound works");
-            isPassed = false;
-            if (selectedQValue >= .001) {
-              isPassed = true;
-            }
-            printResult(isPassed);
-
-            ///////////////////
             //////TEST 5///////
             ///////////////////
 
-            console.log("Test 5: Confirm that gain upper bound works");
-            isPassed = false;
-            if (selectedGain <= 40) {
+            console.log("Test 5: Confirm that frequency upper bound works");
+            let isPassed = false;
+            if (selectedFrequency <= 22050) {
               isPassed = true;
             }
             printResult(isPassed);
@@ -307,9 +283,9 @@ const test1 = function() {
             //////TEST 6///////
             ///////////////////
 
-            console.log("Test 6: Confirm that gain lower bound works");
+            console.log("Test 6: Confirm that frequency lower bound works");
             isPassed = false;
-            if (selectedGain >= -40) {
+            if (selectedFrequency >= 10) {
               isPassed = true;
             }
             printResult(isPassed);
@@ -318,7 +294,51 @@ const test1 = function() {
             //////TEST 7///////
             ///////////////////
 
-            console.log("Test 7: Confirm that an existing filter is used");
+            console.log("Test 7: Confirm that QValue upper bound works");
+            isPassed = false;
+            if (selectedQValue <= 1000) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 8///////
+            ///////////////////
+
+            console.log("Test 8: Confirm that QValue lower bound works");
+            isPassed = false;
+            if (selectedQValue >= .001) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 9///////
+            ///////////////////
+
+            console.log("Test 9: Confirm that gain upper bound works");
+            isPassed = false;
+            if (selectedGain <= 40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 10///////
+            ///////////////////
+
+            console.log("Test 10: Confirm that gain lower bound works");
+            isPassed = false;
+            if (selectedGain >= -40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 11///////
+            ///////////////////
+
+            console.log("Test 11: Confirm that an existing filter is used");
             isPassed = false;
             if (selectedFilter == 'lowpass' || selectedFilter == 'highpass'
               || selectedFilter == 'bandpass' || selectedFilter == 'lowshelf'
