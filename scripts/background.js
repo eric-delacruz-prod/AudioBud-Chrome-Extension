@@ -18,6 +18,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "testing") {
     testRun = !testRun;
+    console.log("Test Mode Activated:")
     console.log(testRun);
     //background.init()
     //chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
@@ -26,20 +27,19 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
   }
 });
 
-const printResult = function(description, isPassed) {
-  console.log(description);
+const printResult = function(isPassed) {
   console.log('Result: ');
   console.log(isPassed);
 }
 
-const testSuite = function() {
+/*const testSuite = function() {
   console.log("Starting test suite!\n");
   testTest();
   test1();
   console.log("Test suite complete\n");
-};
+};*/
 
-const testTest = function() {
+/*const testTest = function() {
   let isPassed = false;
   let a = 20;
   let b = 10;
@@ -48,8 +48,10 @@ const testTest = function() {
     isPassed = true;
   }
   printResult("Test 1: Confirm testing suite is working", isPassed);
+<<<<<<< HEAD
 }
 //
+
 const test1 = function() {
   let isPassed = false;
   chrome.runtime.onMessage.addListener(
@@ -65,8 +67,10 @@ const test1 = function() {
     && background.selectedGain >= -40) {
     isPassed = true;
   )}*/
+  /*
   printResult("Test 2: Confirm error handling of inputs works", isPassed);
 }
+*/
 //
 const test2 = function(){
 
@@ -86,6 +90,9 @@ const test2 = function(){
   init: function () {
     //Use the chrome.runtime API
     //chrome.runtime.onMessage.addListener(background.onMessage);
+    if (testRun == true) {
+      console.log("Running in test mode!");
+    }
     chrome.runtime.onConnect.addListener(background.onConnect);
   },
   //Runs audio capturing code when popup.js runs chrome.runtime.connect()
@@ -134,9 +141,9 @@ const test2 = function(){
 
           //error handlind of inputs.
           if(selectedFrequency>22050)
-            selectedFilter=22050;
-          else if(selectedFilter<10)
-            selectedFilter=10;
+            selectedFrequency=22050;
+          else if(selectedFrequency<10)
+            selectedFrequency=10;
 
           if(selectedQValue>1000)
             selectedQValue=1000;
@@ -147,11 +154,6 @@ const test2 = function(){
             selectedGain=40;
           else if(selectedGain<-40)
             selectedGain=-40;
-
-          if (testRun == true) {
-            console.log('testRun');
-            chrome.runtime.sendMessage({"filter": selectedFilter, "qValue": selectedQValue, "gain": selectedGain});
-          }
 
           console.log(selectedFrequency);
 
@@ -229,10 +231,22 @@ const test2 = function(){
           }
           }
 
-
-
-
           update()
+
+          ///////////////////
+          //////TEST 1///////
+          ///////////////////
+
+          if (testRun == true) {
+            console.log("Test 1: Confirm that numeric error handling works");
+            let isPassed = false;
+            if (selectedFrequency <= 22050 && selectedFrequency >= 10
+                && selectedQValue <= 1000 && selectedQValue >= .001
+                &&selectedGain <= 40 && selectedGain >= -40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+          }
           //this sets the range
           //too low and the bars start capping out
           analyserNode.maxDecibels = -20
