@@ -2,9 +2,13 @@ var port = chrome.runtime.connect();
 var connected;
 let visual;
 let count = 0;
+let testRun = false;
 console.log("Connected");
 
 port.onMessage.addListener(function(message) {
+  chrome.storage.sync.get(['testRun'], function(result) {
+    testRun = result.testRun;
+  });
     var active = message.active;
     console.log(active);
 
@@ -51,6 +55,19 @@ port.onMessage.addListener(function(message) {
     else {
       count++;
     }
+
+    /*if (testRun == true) {
+      ///////////////////
+      //////TEST 12///////
+      ///////////////////
+      console.log("Test 12: Check that visuals value is valid");
+      let isPassed = false;
+      if (visual == 'RLs' || visual == 'LRs' || visual == 'LRRLs' || visual == 'TDs') {
+        isPassed = true;
+      }
+      console.log('Result: ');
+      console.log(isPassed);
+    }*/
 
 
     var dataArr = message.data;
