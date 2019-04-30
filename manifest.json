@@ -29,7 +29,10 @@
     "default_title": "AudioBud"
   },
 
-  "options_page": "html/options.html",
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": false
+  },
 
   "background": {
 		"scripts": ["scripts/background.js"],

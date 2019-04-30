@@ -40,7 +40,7 @@ port.onMessage.addListener(function(message) {
     var bufferL = message.bufferLength;
     var frame = requestAnimationFrame(function() {
         audioCanvas.ctx.clearRect(0,0,audioCanvas.width,audioCanvas.height);
-        audioCanvas.ctx.fillStyle = "rgb(165, 165, 165)";
+        audioCanvas.ctx.fillStyle = "rgb(50, 50, 70)";
         audioCanvas.ctx.fillRect(0,0,3000,2000);
         var recWidth = (3000 / bufferL);
         var recHeight;
@@ -49,9 +49,12 @@ port.onMessage.addListener(function(message) {
         for (var i = 0; i < bufferL; i++) {
             var data = dataArr[i];
             recHeight = Math.round(data)
+
+            //Are these values being used?
             var r = 300 - data;
             var g = 185;
             var b = 225;
+            //
             audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
             audioCanvas.ctx.fillRect(x,0,recWidth,recHeight*2);
             x += recWidth;
