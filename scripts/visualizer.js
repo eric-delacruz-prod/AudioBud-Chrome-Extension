@@ -50,14 +50,20 @@ port.onMessage.addListener(function(message) {
             var data = dataArr[i];
             recHeight = Math.round(data)
 
-            //Are these values being used?
-            var r = 300 - data;
-            var g = 185;
-            var b = 225;
-            //
+            //Solid Bars: Top Down
             audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
             audioCanvas.ctx.fillRect(x,0,recWidth,recHeight*2);
             x += recWidth;
+
+            //Segmented Bars: Top Down
+            /*
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
+            audioCanvas.ctx.fillRect(x,0,recWidth,recHeight/2);
+            audioCanvas.ctx.fillRect(x,recHeight/2+20,recWidth,recHeight/2);
+            audioCanvas.ctx.fillRect(x,(2*(recHeight/2)+20)+20,recWidth,recHeight/2);
+            audioCanvas.ctx.fillRect(x,((2*(recHeight/2)+20)+20)+recHeight/2+20,recWidth,recHeight/2);
+            audioCanvas.ctx.fillRect(x,(((2*(recHeight/2)+20)+20)+recHeight/2+20)+recHeight/2+20,recWidth,recHeight/2);
+            x += recWidth;*/
         }
         audioCanvas.ctx.closePath();
     });
