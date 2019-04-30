@@ -1,11 +1,12 @@
 var port = chrome.runtime.connect();
 var connected;
-let visual;
-let count = 0;
-let testRun = false;
 console.log("Connected");
 
 port.onMessage.addListener(function(message) {
+
+  let testRun = false;
+  let visual;
+  let count = 0;
   chrome.storage.sync.get(['testRun'], function(result) {
     testRun = result.testRun;
   });
@@ -118,9 +119,9 @@ port.onMessage.addListener(function(message) {
                   var gradient = audioCanvas.ctx.createLinearGradient(0, 0, audioCanvas.width, 0);
                   gradient.addColorStop("0", "rgb(107, 220, 254)");
                   gradient.addColorStop("1.0", "rgb(200, 104, 191)");
-                  
+
                   var avg = total/bufferL;
-                  
+
                   audioCanvas.ctx.strokeStyle = gradient;
                   audioCanvas.ctx.arc(audioCanvas.width/2,500,avg/2, 0, 2 * Math.PI);
                   audioCanvas.ctx.stroke();
