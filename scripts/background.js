@@ -6,7 +6,13 @@
 //TEST SUITE//////////////////////////////////
 //////////////////////////////////////////////
 
-var testRun = false;
+/*chrome.storage.sync.get(['filter'], function(result){
+  selectedFilter = result.filter;
+});*/
+
+let testRun_local = false;
+
+chrome.storage.sync.set({testRun: false}, function(){});
 
 chrome.contextMenus.create({
   title: "Test Mode",
@@ -17,9 +23,18 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "testing") {
-    testRun = !testRun;
-    console.log("Test Mode Activated:")
-    console.log(testRun);
+    //Get current value of global testRun
+    chrome.storage.sync.get(['testRun'], function(result) {
+      testRun_local = result.testRun;
+    });
+    //Toggle value of testRun
+    chrome.storage.sync.set({testRun: !testRun_local}, function() {});
+    //Update local value of testRun
+    chrome.storage.sync.get(['testRun'], function(result) {
+      testRun_local = result.testRun;
+      console.log("Test Mode Activated:")
+      console.log(testRun_local);
+    })
   }
 });
 
@@ -36,7 +51,7 @@ const printResult = function(isPassed) {
   init: function () {
     //Use the chrome.runtime API
     //chrome.runtime.onMessage.addListener(background.onMessage);
-    if (testRun == true) {
+    if (testRun_local == true) {
       console.log("Running in test mode!");
     }
     chrome.runtime.onConnect.addListener(background.onConnect);
@@ -61,7 +76,7 @@ const printResult = function(isPassed) {
         var selectedGain      = -6;
 
 
-        if (testRun == true) {
+        if (testRun_local == true) {
             ///////////////////
             //////TEST 1///////
             ///////////////////
@@ -221,7 +236,7 @@ const printResult = function(isPassed) {
 
 
 
-          if (testRun == true) {
+          if (testRun_local == true) {
 
             ///////////////////
             //////TEST 5///////
