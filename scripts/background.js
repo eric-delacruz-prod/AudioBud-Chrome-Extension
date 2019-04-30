@@ -2,6 +2,43 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
+///////////////////////////////////////////////
+//TEST SUITE//////////////////////////////////
+//////////////////////////////////////////////
+
+chrome.contextMenus.create({
+  title: "test",
+  id: "testing",
+  contexts: ["all"],
+});
+
+const testSuite = function() {
+  console.log("Starting test suite!\n");
+  testTest();
+  console.log("Test suite complete\n");
+};
+
+
+const testTest = function() {
+  let a = 20;
+  let b = 10;
+  let c = a + b;
+  if (c == 30) {
+    console.log("Working as intended\n");
+  }
+}
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId == "testing") {
+    testSuite();
+  }
+});
+
+////////////////////////////////////////////
+/////END OF TEST SUITE//////////////////////
+////////////////////////////////////////////
+
+
   var background = {
 
 
