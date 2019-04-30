@@ -41,16 +41,30 @@
         audioSourceNode.connect(filter);
 
           function update(){
+
+          //Get values from the options.html
           chrome.storage.sync.get(['filter'], function(result){
             selectedFilter = result.filter;
           });
+          chrome.storage.sync.get(['frequency'], function(result){
+            selectedFrequency = Math.floor(result.frequency);
+          });
+          chrome.storage.sync.get(['Q'], function(result){
+            selectedQValue = Math.floor(result.Q);
+          });
+          chrome.storage.sync.get(['Gain'], function(result){
+            selectedGain = Math.floor(result.Gain);
+          });
+
+          console.log(selectedFrequency);
+
           filter.disconnect()
           audioSourceNode.disconnect()
 
           console.log(selectedFilter)
           if(selectedFilter==="lowpass"){
             audioSourceNode.connect(filter);
-            filter.type = "lowpass";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -59,7 +73,7 @@
           }
           else if(selectedFilter==="highpass"){
             audioSourceNode.connect(filter);
-            filter.type = "highpass";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -68,7 +82,7 @@
           }
           else if(selectedFilter==="bandpass"){
             audioSourceNode.connect(filter);
-            filter.type = "bandpass";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -77,7 +91,7 @@
           }
           else if(selectedFilter==="lowshelf"){
             audioSourceNode.connect(filter);
-            filter.type = "lowshelf";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -86,7 +100,7 @@
           }
           else if(selectedFilter==="highshelf"){
             audioSourceNode.connect(filter);
-            filter.type = "highshelf";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -95,7 +109,7 @@
           }
           else if(selectedFilter==="peaking"){
             audioSourceNode.connect(filter);
-            filter.type = "peaking";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
@@ -104,7 +118,7 @@
           }
           else if(selectedFilter==="notch"){
             audioSourceNode.connect(filter);
-            filter.type = "notch";
+            filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
             filter.Q.value = selectedQValue;
             filter.gain.value = selectedGain;
