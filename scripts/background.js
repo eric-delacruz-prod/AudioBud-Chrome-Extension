@@ -48,9 +48,7 @@ const printResult = function(isPassed) {
     isPassed = true;
   }
   printResult("Test 1: Confirm testing suite is working", isPassed);
-<<<<<<< HEAD
-}
-//
+}*/
 
 const test1 = function() {
   let isPassed = false;
@@ -67,13 +65,7 @@ const test1 = function() {
     && background.selectedGain >= -40) {
     isPassed = true;
   )}*/
-  /*
   printResult("Test 2: Confirm error handling of inputs works", isPassed);
-}
-*/
-//
-const test2 = function(){
-
 }
 
 
