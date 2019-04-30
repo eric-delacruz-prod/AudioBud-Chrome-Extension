@@ -6,15 +6,23 @@
 //TEST SUITE//////////////////////////////////
 //////////////////////////////////////////////
 
+var testRun = false;
+
 chrome.contextMenus.create({
-  title: "test",
+  title: "Test Mode",
   id: "testing",
   contexts: ["all"],
+  type: "checkbox"
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "testing") {
-    testSuite();
+    testRun = !testRun;
+    console.log(testRun);
+    //background.init()
+    //chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
+    //testSuite();
+    //background.call()
   }
 });
 
@@ -27,6 +35,7 @@ const printResult = function(description, isPassed) {
 const testSuite = function() {
   console.log("Starting test suite!\n");
   testTest();
+  test1();
   console.log("Test suite complete\n");
 };
 
@@ -42,7 +51,21 @@ const testTest = function() {
 }
 
 const test1 = function() {
-
+  let isPassed = false;
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log(request.frequency);
+    })
+  /*console.log(background.selectedFrequency);
+  if(background.selectedFrequency <= 22050
+    && background.selectedFrequency >= 10
+    && background.selectedQValue <= 1000
+    && background.selectedQValue >= .001
+    && background.selectedGain <= 40
+    && background.selectedGain >= -40) {
+    isPassed = true;
+  )}*/
+  printResult("Test 2: Confirm error handling of inputs works", isPassed);
 }
 
 
@@ -120,6 +143,11 @@ const test1 = function() {
             selectedGain=40;
           else if(selectedGain<-40)
             selectedGain=-40;
+
+          if (testRun == true) {
+            console.log('testRun');
+            chrome.runtime.sendMessage({"filter": selectedFilter, "qValue": selectedQValue, "gain": selectedGain});
+          }
 
           console.log(selectedFrequency);
 
