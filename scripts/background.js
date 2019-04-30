@@ -12,27 +12,39 @@ chrome.contextMenus.create({
   contexts: ["all"],
 });
 
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId == "testing") {
+    testSuite();
+  }
+});
+
+const printResult = function(description, isPassed) {
+  console.log(description);
+  console.log('Result: ');
+  console.log(isPassed);
+}
+
 const testSuite = function() {
   console.log("Starting test suite!\n");
   testTest();
   console.log("Test suite complete\n");
 };
 
-
 const testTest = function() {
+  let isPassed = false;
   let a = 20;
   let b = 10;
   let c = a + b;
   if (c == 30) {
-    console.log("Working as intended\n");
+    isPassed = true;
   }
+  printResult("Test 1: Confirm testing suite is working", isPassed);
 }
 
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId == "testing") {
-    testSuite();
-  }
-});
+const test1 = function() {
+
+}
+
 
 ////////////////////////////////////////////
 /////END OF TEST SUITE//////////////////////
