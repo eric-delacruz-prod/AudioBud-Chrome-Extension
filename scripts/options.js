@@ -2,12 +2,9 @@ let page = document.getElementById('buttonDiv');
 
 const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
                   'highshelf', 'peaking', 'notch', 'allpass'];
+const kVisuals = ['TDs', 'RLs','LRs','LRRLs'];
 
-//Write default values, otherwise this may crash with infinite float error
-chrome.storage.sync.set({filter: 'allpass'}, function(){});
-chrome.storage.sync.set({frequency: 440}, function(){});
-chrome.storage.sync.set({Q: 1}, function(){});
-chrome.storage.sync.set({Gain: 0}, function(){});
+
 
 function constructOptions(kButtonColors) {
  for (let item of kButtonColors) {
@@ -79,8 +76,21 @@ function constructOptionGain(){
   document.getElementById('gainForm').appendChild(textboxGain);
 }
 
+function constructOptionsVisual(kButtonVisuals) {
+ for (let item of kVisuals) {
+   let button = document.createElement('button');
+   button.innerHTML = item;
+   button.addEventListener('click', function() {
+     chrome.storage.sync.set({visuals: item}, function() {
+       console.log('visual is ' + item);
+     })
+   });
+   document.getElementById('buttonVisual').appendChild(button);
+ }
+}
 
 constructOptions(kFilters);
 constructOptionFreq();
 constructOptionQ();
 constructOptionGain();
+constructOptionsVisual(kVisuals);

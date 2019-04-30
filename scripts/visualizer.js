@@ -1,5 +1,7 @@
 var port = chrome.runtime.connect();
 var connected;
+let visual;
+let count = 0;
 console.log("Connected");
 
 port.onMessage.addListener(function(message) {
@@ -36,6 +38,21 @@ port.onMessage.addListener(function(message) {
         document.body.removeChild(canvasContainer);
 
     }
+
+
+
+    // Calling update every time would probably be too taxing on program.
+    if(count === 10){
+      chrome.storage.sync.get(['visuals'], function(result){
+        visual = result.visuals;
+      });
+      count = 0;
+    }
+    else {
+      count++;
+    }
+
+
     var dataArr = message.data;
     var bufferL = message.bufferLength;
     var frame = requestAnimationFrame(function() {
@@ -55,15 +72,31 @@ port.onMessage.addListener(function(message) {
             recVertHeight = Math.round(data)
             recHorzWidth = Math.round(data)
 
-            /*
-            //Solid Bars: Top -> Down
-            audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
-            audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
-            */
+            if(visual === 'RLs'){
+              //Solid Bars: Right -> Left
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+              audioCanvas.ctx.fillRect(0,y,recHorzWidth*4,recHorzHeight);
+            }
+            else if(visual === 'LRs'){
+              //Solid Bars: Left -> Right
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+              audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*4,recHorzHeight);
+            }
+            else if(visual === 'LRRLs'){
+              //Solid Bars: Left -> Right & Right -> Left
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+              audioCanvas.ctx.fillRect(0,y,recHorzWidth*2,recHorzHeight);
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+              audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
+            }
+            else{
+              //Solid Bars: Top -> Down
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
+              audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
+            }
 
             /*
             //Segmented Bars: Top -> Down NOT WORKING - HOLD IMPLEMENTATION
-            
             audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
             audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight/2);
             audioCanvas.ctx.fillRect(x,recVertHeight/2+20,recVertWidth,recVertHeight/2);
@@ -92,6 +125,7 @@ port.onMessage.addListener(function(message) {
             audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
             */
 
+            /*
             //Pulsing Ellipse: Average Data
             total += Math.round(data);
             if(i == bufferL-1) {
@@ -127,6 +161,7 @@ port.onMessage.addListener(function(message) {
                 audioCanvas.ctx.closePath();
                 audioCanvas.ctx.beginPath();
             }
+            */
 
 
             x += recVertWidth;
