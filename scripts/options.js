@@ -79,7 +79,17 @@ function constructOptionGain(){
   document.getElementById('gainForm').appendChild(textboxGain);
 }
 
+function constructOptionTest(){
+  let button = document.createElement('button');
+  button.innerHTML = "runTests";
+  button.addEventListener('click', function(){
+    console.log('tests are running');
+  });
+  document.getElementById('runTest').appendChild(button);
+}
+
 constructOptions(kFilters);
 constructOptionFreq();
 constructOptionQ();
 constructOptionGain();
+constructOptionTest();
