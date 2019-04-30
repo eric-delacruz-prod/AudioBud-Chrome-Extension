@@ -58,9 +58,9 @@
 
           //error handlind of inputs.
           if(selectedFrequency>22050)
-            selectedFilter=22050;
-          else if(selectedFilter<10)
-            selectedFilter=10;
+            selectedFrequency=22050;
+          else if(selectedFrequency<10)
+            selectedFrequency=10;
 
           if(selectedQValue>1000)
             selectedQValue=1000;
