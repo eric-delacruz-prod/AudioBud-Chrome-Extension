@@ -109,7 +109,7 @@ const test2 = function(){
         video: false
       },
       function (stream) {
-        var selectedFilter    = "nofilter"
+        var selectedFilter    = "allpass"
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
@@ -246,7 +246,19 @@ const test2 = function(){
               isPassed = true;
             }
             printResult(isPassed);
+
+
+            console.log("Test 2: Confirm that an existing filter is used");
+            isPassed = false;
+            if (selectedFilter == 'lowpass' || selectedFilter == 'highpass'
+              || selectedFilter == 'bandpass' || selectedFilter == 'lowshelf'
+              || selectedFilter == 'highshelf' || selectedFilter == 'peaking'
+              || selectedFilter == 'notch' || selectedFilter == 'allpass') {
+              isPassed = true;
+            }
+            printResult(isPassed);
           }
+
           //this sets the range
           //too low and the bars start capping out
           analyserNode.maxDecibels = -20
