@@ -2,15 +2,8 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
-///////////////////////////////////////////////
-//TEST SUITE//////////////////////////////////
-//////////////////////////////////////////////
-
-/*chrome.storage.sync.get(['filter'], function(result){
-  selectedFilter = result.filter;
-});*/
-
-let testRun_local = false;
+let testRun_local = false; //Controls whether tests are run
+let testLoop = 0; //Controls values for bounds testing
 
 chrome.storage.sync.set({testRun: false}, function(){});
 
@@ -35,6 +28,9 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
       console.log("Test Mode Activated:")
       console.log(testRun_local);
     })
+  }
+  if (testRun_local == true) {
+    testLoop = 0;
   }
 });
 
@@ -143,6 +139,24 @@ const printResult = function(isPassed) {
             selectedGain = Math.floor(result.Gain);
           });
 
+
+          //////////////////////////
+          //SET VALUES FOR TESTING//
+          //////////////////////////
+
+          if (testRun_local == true) {
+            if (testLoop == 0) {
+              selectedFrequency = 100000;
+              selectedQValue = 50000;
+              selectedGain = 100;
+            }
+            if (testLoop == 1) {
+              selectedFrequency = 0;
+              selectedQValue = 0;
+              selectedGain = -100;
+            }
+          }
+
           //error handlind of inputs.
           if(selectedFrequency>22050)
             selectedFrequency=22050;
@@ -230,94 +244,116 @@ const printResult = function(isPassed) {
             audioSourceNode.connect(analyserNode);
             audioSourceNode.connect(audioContext.destination);
           }
-          }
 
-          update()
-
+          ////////////////////
+          //BOUNDS TESTING////
+          ////////////////////
 
 
           if (testRun_local == true) {
 
-            ///////////////////
-            //////TEST 5///////
-            ///////////////////
+            if (testLoop == 0) {
 
-            console.log("Test 5: Confirm that frequency upper bound works");
-            let isPassed = false;
-            if (selectedFrequency <= 22050) {
-              isPassed = true;
+              ///////////////////
+              //////TEST 6///////
+              ///////////////////
+
+              console.log("Test 6: Confirm that frequency upper bound works");
+              let isPassed = false;
+              if (selectedFrequency <= 22050) {
+                isPassed = true;
+              }
+              printResult(isPassed);
+
+              ///////////////////
+              //////TEST 7///////
+              ///////////////////
+
+              console.log("Test 7: Confirm that QValue upper bound works");
+              isPassed = false;
+              if (selectedQValue <= 1000) {
+                isPassed = true;
+              }
+              printResult(isPassed);
+
+              ///////////////////
+              //////TEST 8///////
+              ///////////////////
+
+              console.log("Test 8: Confirm that gain upper bound works");
+              isPassed = false;
+              if (selectedGain <= 40) {
+                isPassed = true;
+              }
+              printResult(isPassed);
             }
-            printResult(isPassed);
 
-            ///////////////////
-            //////TEST 6///////
-            ///////////////////
+            else if (testLoop == 1) {
 
-            console.log("Test 6: Confirm that frequency lower bound works");
-            isPassed = false;
-            if (selectedFrequency >= 10) {
-              isPassed = true;
+              ///////////////////
+              //////TEST 9///////
+              ///////////////////
+
+              console.log("Test 9: Confirm that frequency lower bound works");
+              isPassed = false;
+              if (selectedFrequency >= 10) {
+                isPassed = true;
+              }
+              printResult(isPassed);
+
+              ///////////////////
+              //////TEST 10///////
+              ///////////////////
+
+              console.log("Test 10: Confirm that QValue lower bound works");
+              isPassed = false;
+              if (selectedQValue >= .001) {
+                isPassed = true;
+              }
+              printResult(isPassed);
+
+              ///////////////////
+              //////TEST 11///////
+              ///////////////////
+
+              console.log("Test 11: Confirm that gain lower bound works");
+              isPassed = false;
+              if (selectedGain >= -40) {
+                isPassed = true;
+              }
+              printResult(isPassed);
             }
-            printResult(isPassed);
 
-            ///////////////////
-            //////TEST 7///////
-            ///////////////////
-
-            console.log("Test 7: Confirm that QValue upper bound works");
-            isPassed = false;
-            if (selectedQValue <= 1000) {
-              isPassed = true;
+            if (testLoop < 2) {
+              testLoop++;
             }
-            printResult(isPassed);
+          }
 
-            ///////////////////
-            //////TEST 8///////
-            ///////////////////
+          ///////////////////////////
+          //END OF BOUNDS TESTING//
+          //////////////////////////
 
-            console.log("Test 8: Confirm that QValue lower bound works");
-            isPassed = false;
-            if (selectedQValue >= .001) {
-              isPassed = true;
-            }
-            printResult(isPassed);
 
-            ///////////////////
-            //////TEST 9///////
-            ///////////////////
+          }
 
-            console.log("Test 9: Confirm that gain upper bound works");
-            isPassed = false;
-            if (selectedGain <= 40) {
-              isPassed = true;
-            }
-            printResult(isPassed);
+          ///////////////////
+          //////TEST 5///////
+          ///////////////////
 
-            ///////////////////
-            //////TEST 10///////
-            ///////////////////
-
-            console.log("Test 10: Confirm that gain lower bound works");
-            isPassed = false;
-            if (selectedGain >= -40) {
-              isPassed = true;
-            }
-            printResult(isPassed);
-
-            ///////////////////
-            //////TEST 11///////
-            ///////////////////
-
-            console.log("Test 11: Confirm that an existing filter is used");
+          if (testRun_local == true) {
+            console.log("Test 5: Confirm that an existing filter is used");
             isPassed = false;
             if (selectedFilter == 'lowpass' || selectedFilter == 'highpass'
               || selectedFilter == 'bandpass' || selectedFilter == 'lowshelf'
               || selectedFilter == 'highshelf' || selectedFilter == 'peaking'
               || selectedFilter == 'notch' || selectedFilter == 'allpass') {
-              isPassed = true;
-            }
-            printResult(isPassed);
+                isPassed = true;
+              }
+              printResult(isPassed);
           }
+
+          update()
+
 
           //this sets the range
           //too low and the bars start capping out
