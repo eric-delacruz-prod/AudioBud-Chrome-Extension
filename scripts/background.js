@@ -105,6 +105,25 @@ const test1 = function() {
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
+            ///////////////////
+            //////TEST 1///////
+            ///////////////////
+            console.log("Test 1: initial filter test check if is 'allpass' ");
+            isPassed = false;
+            if (selectedFilter == "allpass" ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 1///////
+            ///////////////////
+            console.log("Test 1: initial filter test check if is 'allpass' ");
+            isPassed = false;
+            if (selectedFrequency == 400 ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
 
         //stream is a 'MediaStream' that is our audio source
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
