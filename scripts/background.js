@@ -2,6 +2,32 @@
 //Here is all the documentation needed
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
 
+///////////////////////////////////////////////
+//TEST SUITE//////////////////////////////////
+//////////////////////////////////////////////
+
+var testRun = false;
+
+chrome.contextMenus.create({
+  title: "Test Mode",
+  id: "testing",
+  contexts: ["all"],
+  type: "checkbox"
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId == "testing") {
+    testRun = !testRun;
+    console.log("Test Mode Activated:")
+    console.log(testRun);
+  }
+});
+
+const printResult = function(isPassed) {
+  console.log('Result: ');
+  console.log(isPassed);
+}
+
   var background = {
 
 
@@ -10,6 +36,9 @@
   init: function () {
     //Use the chrome.runtime API
     //chrome.runtime.onMessage.addListener(background.onMessage);
+    if (testRun == true) {
+      console.log("Running in test mode!");
+    }
     chrome.runtime.onConnect.addListener(background.onConnect);
   },
   //Runs audio capturing code when popup.js runs chrome.runtime.connect()
@@ -30,6 +59,45 @@
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
+            ///////////////////
+            //////TEST 1///////
+            ///////////////////
+            console.log("Test 1: initial filter test check if is 'allpass' ");
+            let isPassed = false;
+            if (selectedFilter == "allpass" ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 2///////
+            ///////////////////
+            console.log("Test 2: initial Frequency test ");
+            isPassed = false;
+            if (selectedFrequency == 400 ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 3///////
+            ///////////////////
+            console.log("Test 3: initial QValue test ");
+            isPassed = false;
+            if (selectedQValue    == 1 ) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 4///////
+            ///////////////////
+            console.log("Test 4: initial Gain test ");
+            isPassed = false;
+            if (selectedGain      == -6) {
+              isPassed = true;
+            }
+            printResult(isPassed);
 
         //stream is a 'MediaStream' that is our audio source
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
@@ -148,10 +216,93 @@
           }
           }
 
-
-
-
           update()
+
+
+
+          if (testRun == true) {
+
+            ///////////////////
+            //////TEST 5///////
+            ///////////////////
+
+            console.log("Test 5: Confirm that frequency upper bound works");
+            let isPassed = false;
+            if (selectedFrequency <= 22050) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 6///////
+            ///////////////////
+
+            console.log("Test 6: Confirm that frequency lower bound works");
+            isPassed = false;
+            if (selectedFrequency >= 10) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 7///////
+            ///////////////////
+
+            console.log("Test 7: Confirm that QValue upper bound works");
+            isPassed = false;
+            if (selectedQValue <= 1000) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 8///////
+            ///////////////////
+
+            console.log("Test 8: Confirm that QValue lower bound works");
+            isPassed = false;
+            if (selectedQValue >= .001) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 9///////
+            ///////////////////
+
+            console.log("Test 9: Confirm that gain upper bound works");
+            isPassed = false;
+            if (selectedGain <= 40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 10///////
+            ///////////////////
+
+            console.log("Test 10: Confirm that gain lower bound works");
+            isPassed = false;
+            if (selectedGain >= -40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 11///////
+            ///////////////////
+
+            console.log("Test 11: Confirm that an existing filter is used");
+            isPassed = false;
+            if (selectedFilter == 'lowpass' || selectedFilter == 'highpass'
+              || selectedFilter == 'bandpass' || selectedFilter == 'lowshelf'
+              || selectedFilter == 'highshelf' || selectedFilter == 'peaking'
+              || selectedFilter == 'notch' || selectedFilter == 'allpass') {
+              isPassed = true;
+            }
+            printResult(isPassed);
+          }
+
           //this sets the range
           //too low and the bars start capping out
           analyserNode.maxDecibels = -20
