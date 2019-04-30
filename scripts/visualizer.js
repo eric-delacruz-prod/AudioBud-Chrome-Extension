@@ -20,9 +20,9 @@ port.onMessage.addListener(function(message) {
         canvasContainer.style.height="100%";
         canvasContainer.style.zIndex="1000";
         audioCanvas = document.createElement('canvas');
-        audioCanvas.style.width = document.body.clientHeight;
+        audioCanvas.style.width = 1600;
         audioCanvas.style.height = document.body.clientWidth;
-        audioCanvas.height = document.body.clientHeight;
+        audioCanvas.height = 1600;
         audioCanvas.width = document.body.clientWidth;
         audioCanvas.style.overflow = 'visible';
         audioCanvas.style.position = 'absolute';
@@ -39,31 +39,58 @@ port.onMessage.addListener(function(message) {
     var dataArr = message.data;
     var bufferL = message.bufferLength;
     var frame = requestAnimationFrame(function() {
-        audioCanvas.ctx.clearRect(0,0,audioCanvas.width,audioCanvas.height);
+        audioCanvas.ctx.clearRect(0,0,audioCanvas.width,1600);
         audioCanvas.ctx.fillStyle = "rgb(50, 50, 70)";
-        audioCanvas.ctx.fillRect(0,0,3000,2000);
-        var recWidth = (3000 / bufferL);
-        var recHeight;
+        audioCanvas.ctx.fillRect(0,0,audioCanvas.width,1600);
+        var recVertWidth = (audioCanvas.width / bufferL);
+        var recVertHeight;
+        var recHorzHeight = (1600 / bufferL);
+        var recHorzWidth;
         var x = 0;
+        var y = 0;
         audioCanvas.ctx.beginPath();
         for (var i = 0; i < bufferL; i++) {
             var data = dataArr[i];
-            recHeight = Math.round(data)
+            recVertHeight = Math.round(data)
+            recHorzWidth = Math.round(data)
 
-            //Solid Bars: Top Down
-            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
-            audioCanvas.ctx.fillRect(x,0,recWidth,recHeight*2);
-            x += recWidth;
-
-            //Segmented Bars: Top Down
             /*
-            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHeight) + "," + (185-recHeight) + "," + (185-recHeight) + ")";
-            audioCanvas.ctx.fillRect(x,0,recWidth,recHeight/2);
-            audioCanvas.ctx.fillRect(x,recHeight/2+20,recWidth,recHeight/2);
-            audioCanvas.ctx.fillRect(x,(2*(recHeight/2)+20)+20,recWidth,recHeight/2);
-            audioCanvas.ctx.fillRect(x,((2*(recHeight/2)+20)+20)+recHeight/2+20,recWidth,recHeight/2);
-            audioCanvas.ctx.fillRect(x,(((2*(recHeight/2)+20)+20)+recHeight/2+20)+recHeight/2+20,recWidth,recHeight/2);
-            x += recWidth;*/
+            //Solid Bars: Top -> Down
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
+            audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
+            */
+
+            /*
+            //Segmented Bars: Top -> Down NOT WORKING - HOLD IMPLEMENTATION
+            
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
+            audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight/2);
+            audioCanvas.ctx.fillRect(x,recVertHeight/2+20,recVertWidth,recVertHeight/2);
+            audioCanvas.ctx.fillRect(x,(2*(recHVerteight/2)+20)+20,recWidth,recVertHeight/2);
+            audioCanvas.ctx.fillRect(x,((2*(recVertHeight/2)+20)+20)+recVertHeight/2+20,recVertWidth,recVertHeight/2);
+            audioCanvas.ctx.fillRect(x,(((2*(reVertcHeight/2)+20)+20)+recVertHeight/2+20)+recVertHeight/2+20,recVertWidth,recVertHeight/2);
+            */
+
+            /*
+            //Solid Bars: Right -> Left
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+            audioCanvas.ctx.fillRect(0,y,recHorzWidth*4,recHorzHeight);
+            */
+
+            /*
+            //Solid Bars: Left -> Right
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+            audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*4,recHorzHeight);
+            */
+            
+            //Solid Bars: Left -> Right & Right -> Left
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+            audioCanvas.ctx.fillRect(0,y,recHorzWidth*2,recHorzHeight);
+            audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
+            audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
+
+            x += recVertWidth;
+            y += recHorzHeight
         }
         audioCanvas.ctx.closePath();
     });
