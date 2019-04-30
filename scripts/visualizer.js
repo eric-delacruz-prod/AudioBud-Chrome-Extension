@@ -89,7 +89,7 @@ port.onMessage.addListener(function(message) {
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
             }
-            else if(visual === 'TD'){
+            else if(visual === 'TDs'){
               //Solid Bars: Top -> Down
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
               audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);

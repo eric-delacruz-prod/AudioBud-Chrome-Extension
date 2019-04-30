@@ -2,7 +2,7 @@ let page = document.getElementById('buttonDiv');
 
 const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
                   'highshelf', 'peaking', 'notch', 'allpass'];
-const kVisuals = ['TDs', 'RLs','LRs','LRRLs','PE'];
+const kVisuals = ['TDs', 'RLs','LRs','LRRLs','PEs'];
 
 
 
