@@ -56,6 +56,22 @@
             selectedGain = Math.floor(result.Gain);
           });
 
+          //error handlind of inputs.
+          if(selectedFrequency>22050)
+            selectedFilter=22050;
+          else if(selectedFilter<10)
+            selectedFilter=10;
+
+          if(selectedQValue>1000)
+            selectedQValue=1000;
+          else if(selectedQValue<.001)
+            selectedQValue=.001;
+
+          if(selectedGain>40)
+            selectedGain=40;
+          else if(selectedGain<-40)
+            selectedGain=-40;
+
           console.log(selectedFrequency);
 
           filter.disconnect()
