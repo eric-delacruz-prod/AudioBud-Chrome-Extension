@@ -26,7 +26,7 @@
         video: false
       },
       function (stream) {
-        var selectedFilter    = "nofilter"
+        var selectedFilter    = "allpass"
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
