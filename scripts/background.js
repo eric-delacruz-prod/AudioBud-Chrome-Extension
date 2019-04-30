@@ -20,10 +20,6 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     testRun = !testRun;
     console.log("Test Mode Activated:")
     console.log(testRun);
-    //background.init()
-    //chrome.tabs.executeScript(null, {file: "scripts/visualizer.js"});
-    //testSuite();
-    //background.call()
   }
 });
 
@@ -31,48 +27,6 @@ const printResult = function(isPassed) {
   console.log('Result: ');
   console.log(isPassed);
 }
-
-/*const testSuite = function() {
-  console.log("Starting test suite!\n");
-  testTest();
-  test1();
-  console.log("Test suite complete\n");
-};*/
-
-/*const testTest = function() {
-  let isPassed = false;
-  let a = 20;
-  let b = 10;
-  let c = a + b;
-  if (c == 30) {
-    isPassed = true;
-  }
-  printResult("Test 1: Confirm testing suite is working", isPassed);
-}*/
-
-const test1 = function() {
-  let isPassed = false;
-  chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      console.log(request.frequency);
-    })
-  /*console.log(background.selectedFrequency);
-  if(background.selectedFrequency <= 22050
-    && background.selectedFrequency >= 10
-    && background.selectedQValue <= 1000
-    && background.selectedQValue >= .001
-    && background.selectedGain <= 40
-    && background.selectedGain >= -40) {
-    isPassed = true;
-  )}*/
-  printResult("Test 2: Confirm error handling of inputs works", isPassed);
-}
-
-
-////////////////////////////////////////////
-/////END OF TEST SUITE//////////////////////
-////////////////////////////////////////////
-
 
   var background = {
 
