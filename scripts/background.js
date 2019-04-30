@@ -225,22 +225,81 @@ const test1 = function() {
 
           update()
 
-          ///////////////////
-          //////TEST 1///////
-          ///////////////////
+
 
           if (testRun == true) {
-            console.log("Test 1: Confirm that numeric error handling works");
+
+            ///////////////////
+            //////TEST 1///////
+            ///////////////////
+
+            console.log("Test 1: Confirm that frequency upper bound works");
             let isPassed = false;
-            if (selectedFrequency <= 22050 && selectedFrequency >= 10
-                && selectedQValue <= 1000 && selectedQValue >= .001
-                &&selectedGain <= 40 && selectedGain >= -40) {
+            if (selectedFrequency <= 22050) {
               isPassed = true;
             }
             printResult(isPassed);
 
+            ///////////////////
+            //////TEST 2///////
+            ///////////////////
 
-            console.log("Test 2: Confirm that an existing filter is used");
+            console.log("Test 2: Confirm that frequency lower bound works");
+            isPassed = false;
+            if (selectedFrequency >= 10) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 3///////
+            ///////////////////
+
+            console.log("Test 3: Confirm that QValue upper bound works");
+            isPassed = false;
+            if (selectedQValue <= 1000) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 4///////
+            ///////////////////
+
+            console.log("Test 4: Confirm that QValue lower bound works");
+            isPassed = false;
+            if (selectedQValue >= .001) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 5///////
+            ///////////////////
+
+            console.log("Test 5: Confirm that gain upper bound works");
+            isPassed = false;
+            if (selectedGain <= 40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 6///////
+            ///////////////////
+
+            console.log("Test 6: Confirm that gain lower bound works");
+            isPassed = false;
+            if (selectedGain >= -40) {
+              isPassed = true;
+            }
+            printResult(isPassed);
+
+            ///////////////////
+            //////TEST 7///////
+            ///////////////////
+
+            console.log("Test 7: Confirm that an existing filter is used");
             isPassed = false;
             if (selectedFilter == 'lowpass' || selectedFilter == 'highpass'
               || selectedFilter == 'bandpass' || selectedFilter == 'lowshelf'
