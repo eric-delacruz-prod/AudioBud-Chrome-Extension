@@ -13,7 +13,7 @@ port.onMessage.addListener(function(message) {
     console.log(active);
 
     var dataArr = message.data;
-    var bufferL = message.bufferLength;
+    var bufferL = message.bufferLength-20;
     if(!Boolean(connected)) {
         connected = 1;
         canvasContainer = document.createElement('div');
@@ -82,6 +82,7 @@ port.onMessage.addListener(function(message) {
         var recHorzWidth;
         var x = 0;
         var y = 0;
+        var total = 0;
         audioCanvas.ctx.beginPath();
         for (var i = 0; i < bufferL; i++) {
             var data = dataArr[i];
@@ -105,25 +106,53 @@ port.onMessage.addListener(function(message) {
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
             }
-            else{
+            else if(visual === 'TDs'){
               //Solid Bars: Top -> Down
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
               audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
             }
-
-            /*
-            //Segmented Bars: Top -> Down NOT WORKING - HOLD IMPLEMENTATION
-            audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
-            audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight/2);
-            audioCanvas.ctx.fillRect(x,recVertHeight/2+20,recVertWidth,recVertHeight/2);
-            audioCanvas.ctx.fillRect(x,(2*(recHVerteight/2)+20)+20,recWidth,recVertHeight/2);
-            audioCanvas.ctx.fillRect(x,((2*(recVertHeight/2)+20)+20)+recVertHeight/2+20,recVertWidth,recVertHeight/2);
-            audioCanvas.ctx.fillRect(x,(((2*(reVertcHeight/2)+20)+20)+recVertHeight/2+20)+recVertHeight/2+20,recVertWidth,recVertHeight/2);
-            */
+            else {
+              //Pulsing Ellipse: Average Data
+              total += Math.round(data);
+              if(i == bufferL-1) {
+                  var gradient = audioCanvas.ctx.createLinearGradient(0, 0, audioCanvas.width, 0);
+                  gradient.addColorStop("0", "rgb(107, 220, 254)");
+                  gradient.addColorStop("1.0", "rgb(200, 104, 191)");
+                  
+                  var avg = total/bufferL;
+                  
+                  audioCanvas.ctx.strokeStyle = gradient;
+                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg/2, 0, 2 * Math.PI);
+                  audioCanvas.ctx.stroke();
+                  audioCanvas.ctx.closePath();
+                  audioCanvas.ctx.beginPath();
+                  audioCanvas.ctx.strokeStyle = gradient;
+                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg, 0, 2 * Math.PI);
+                  audioCanvas.ctx.stroke();
+                  audioCanvas.ctx.closePath();
+                  audioCanvas.ctx.beginPath();
+                  audioCanvas.ctx.strokeStyle = gradient;
+                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*2, 0, 2 * Math.PI);
+                  audioCanvas.ctx.stroke();
+                  audioCanvas.ctx.closePath();
+                  audioCanvas.ctx.beginPath();
+                  audioCanvas.ctx.strokeStyle = gradient;
+                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*3, 0, 2 * Math.PI);
+                  audioCanvas.ctx.stroke();
+                  audioCanvas.ctx.closePath();
+                  audioCanvas.ctx.beginPath();
+                  audioCanvas.ctx.strokeStyle = gradient;
+                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*4, 0, 2 * Math.PI);
+                  audioCanvas.ctx.stroke();
+                  audioCanvas.ctx.closePath();
+                  audioCanvas.ctx.beginPath();
+              }
+            }
 
             x += recVertWidth;
-            y += recHorzHeight
+            y += recHorzHeight;
         }
+
         audioCanvas.ctx.closePath();
     });
 });

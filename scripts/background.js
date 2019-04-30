@@ -6,6 +6,13 @@ let testRun_local = false; //Controls whether tests are run
 let testLoop = 0; //Controls values for bounds testing
 
 chrome.storage.sync.set({testRun: false}, function(){});
+//Write default values, otherwise this may crash with infinite float error
+chrome.storage.sync.set({filter: 'allpass'}, function(){});
+chrome.storage.sync.set({frequency: 440}, function(){});
+chrome.storage.sync.set({Q: 1}, function(){});
+chrome.storage.sync.set({Gain: 0}, function(){});
+chrome.storage.sync.set({visuals: 'TDs'});
+
 
 chrome.contextMenus.create({
   title: "Test Mode",
