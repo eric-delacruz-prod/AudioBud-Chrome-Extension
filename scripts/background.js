@@ -59,6 +59,9 @@ const printResult = function(isPassed) {
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
+
+
+        if (testRun == true) {
             ///////////////////
             //////TEST 1///////
             ///////////////////
@@ -98,6 +101,7 @@ const printResult = function(isPassed) {
               isPassed = true;
             }
             printResult(isPassed);
+        }
 
         //stream is a 'MediaStream' that is our audio source
         var audioSourceNode = audioContext.createMediaStreamSource(stream);
@@ -143,7 +147,6 @@ const printResult = function(isPassed) {
           filter.disconnect()
           audioSourceNode.disconnect()
 
-          console.log(selectedFilter)
           if(selectedFilter==="lowpass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
