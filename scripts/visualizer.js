@@ -13,7 +13,7 @@ port.onMessage.addListener(function(message) {
     console.log(active);
 
     var dataArr = message.data;
-    var bufferL = message.bufferLength-20;
+    var bufferL = message.bufferLength-150;
     if(!Boolean(connected)) {
         connected = 1;
         canvasContainer = document.createElement('div');
@@ -71,10 +71,10 @@ port.onMessage.addListener(function(message) {
 
 
     var dataArr = message.data;
-    var bufferL = message.bufferLength;
+    var bufferL = message.bufferLength-40;
     var frame = requestAnimationFrame(function() {
         audioCanvas.ctx.clearRect(0,0,audioCanvas.width,1600);
-        audioCanvas.ctx.fillStyle = "rgb(50, 50, 70)";
+        audioCanvas.ctx.fillStyle = "rgb(0, 0, 00)";
         audioCanvas.ctx.fillRect(0,0,audioCanvas.width,1600);
         var recVertWidth = (audioCanvas.width / bufferL);
         var recVertHeight;
@@ -111,44 +111,57 @@ port.onMessage.addListener(function(message) {
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
               audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
             }
-            else {
+            else if(visual === 'PEs'){
               //Pulsing Ellipse: Average Data
               total += Math.round(data);
               if(i == bufferL-1) {
-                  var gradient = audioCanvas.ctx.createLinearGradient(0, 0, audioCanvas.width, 0);
-                  gradient.addColorStop("0", "rgb(107, 220, 254)");
-                  gradient.addColorStop("1.0", "rgb(200, 104, 191)");
-                  
-                  var avg = total/bufferL;
-                  
-                  audioCanvas.ctx.strokeStyle = gradient;
-                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg/2, 0, 2 * Math.PI);
-                  audioCanvas.ctx.stroke();
-                  audioCanvas.ctx.closePath();
-                  audioCanvas.ctx.beginPath();
-                  audioCanvas.ctx.strokeStyle = gradient;
-                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg, 0, 2 * Math.PI);
-                  audioCanvas.ctx.stroke();
-                  audioCanvas.ctx.closePath();
-                  audioCanvas.ctx.beginPath();
-                  audioCanvas.ctx.strokeStyle = gradient;
-                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*2, 0, 2 * Math.PI);
-                  audioCanvas.ctx.stroke();
-                  audioCanvas.ctx.closePath();
-                  audioCanvas.ctx.beginPath();
-                  audioCanvas.ctx.strokeStyle = gradient;
-                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*3, 0, 2 * Math.PI);
-                  audioCanvas.ctx.stroke();
-                  audioCanvas.ctx.closePath();
-                  audioCanvas.ctx.beginPath();
-                  audioCanvas.ctx.strokeStyle = gradient;
-                  audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*4, 0, 2 * Math.PI);
-                  audioCanvas.ctx.stroke();
-                  audioCanvas.ctx.closePath();
-                  audioCanvas.ctx.beginPath();
+                var gradient = audioCanvas.ctx.createLinearGradient(0, 0, audioCanvas.width, 0);
+                gradient.addColorStop("0", "rgb(107, 220, 254)");
+                gradient.addColorStop("1.0", "rgb(200, 104, 191)");
+                
+                var avg = total/bufferL;
+                
+                audioCanvas.ctx.strokeStyle = gradient;
+                audioCanvas.ctx.arc(audioCanvas.width/2,500,avg/2, 0, 2 * Math.PI);
+                audioCanvas.ctx.stroke();
+                audioCanvas.ctx.closePath();
+                audioCanvas.ctx.beginPath();
+                audioCanvas.ctx.strokeStyle = gradient;
+                audioCanvas.ctx.arc(audioCanvas.width/2,500,avg, 0, 2 * Math.PI);
+                audioCanvas.ctx.stroke();
+                audioCanvas.ctx.closePath();
+                audioCanvas.ctx.beginPath();
+                audioCanvas.ctx.strokeStyle = gradient;
+                audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*2, 0, 2 * Math.PI);
+                audioCanvas.ctx.stroke();
+                audioCanvas.ctx.closePath();
+                audioCanvas.ctx.beginPath();
+                audioCanvas.ctx.strokeStyle = gradient;
+                audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*3, 0, 2 * Math.PI);
+                audioCanvas.ctx.stroke();
+                audioCanvas.ctx.closePath();
+                audioCanvas.ctx.beginPath();
+                audioCanvas.ctx.strokeStyle = gradient;
+                audioCanvas.ctx.arc(audioCanvas.width/2,500,avg*4, 0, 2 * Math.PI);
+                audioCanvas.ctx.stroke();
+                audioCanvas.ctx.closePath();
+                audioCanvas.ctx.beginPath();
               }
             }
-
+            else {
+              //Ellipse Bars: Frequency
+              var radWidth = Math.PI * 2 / bufferL-100;
+              var barx_end = audioCanvas.width/2 + Math.cos(radWidth * i)*(recVertHeight);
+              var bary_end = 500 + Math.sin(radWidth * i)*(recVertHeight);
+              audioCanvas.ctx.strokeStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
+              audioCanvas.ctx.lineWidth = radWidth;
+              audioCanvas.ctx.moveTo(audioCanvas.width/2,500);
+              audioCanvas.ctx.lineTo(barx_end,bary_end);
+              audioCanvas.ctx.stroke();
+              audioCanvas.ctx.closePath();
+              audioCanvas.ctx.beginPath();
+            }
+            
             x += recVertWidth;
             y += recHorzHeight;
         }
