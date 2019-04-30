@@ -38,7 +38,7 @@ function constructOptionFreq(){
 function constructOptionQ(){
   let textbox = document.createElement('input');
   textbox.type = 'number';
-  textbox.min = .0001;
+  textbox.min = .001;
   textbox.max = 1000;
   textbox.value = 1;
   textbox.addEventListener('click', function() {

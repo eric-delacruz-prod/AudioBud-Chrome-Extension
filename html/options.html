@@ -1,34 +1,68 @@
 <!DOCTYPE html>
 <html>
- <head>
+  <head>
    <style>
-     button {
-       height: 80px;
-       width: 80px;
-       outline: none;
-       margin: 5px;
-     }
-   </style>
- </head>
- <body>
-   <p>Choose a filter!</p>
-   <div id="buttonDiv">
-   </div>
-   <div>
-   <p>Input a corner frequency!</p>
-   </div>
-   <div id="freqForm">
-   </div>
-   <div>
-   <p>Input a Q value!</p>
-   </div>
-   <div id="qForm">
-   </div>
-   <div>
-   <p>Input the gain!</p>
-   </div>
-   <div id="gainForm">
-   </div>
- </body>
- <script src="../scripts/options.js"></script>
+      body{
+        background-color: rgb(50, 50, 70);
+        text-align: center;
+      }
+      p{
+        text-align: center;
+        color: white;
+      }
+      button {
+        display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        height: 40px;
+        width: 80px;
+        outline: none;
+        margin: 2px;
+        background: linear-gradient(35deg, rgb(107, 220, 254) 40%, rgb(255, 186, 226) 90%);
+        transition-duration: 0.4s;
+      }
+      button:hover {
+        color: black;
+      }
+      button:focus {
+        color: black;
+      }
+      input {
+        display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        background: linear-gradient(35deg, rgb(107, 220, 254) 40%, rgb(255, 186, 226) 90%);
+        transition-duration: 0.4s;
+      }
+      input:hover {
+        color: black;
+      }
+      input:focus {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Choose a filter</p>
+    <div id="buttonDiv">
+    </div>
+    <div>
+      <p>Input a corner frequency</p>
+    </div>
+    <div id="freqForm">
+    </div>
+    <div>
+      <p>Input a Q value</p>
+    </div>
+    <div id="qForm">
+    </div>
+    <div>
+      <p>Input the gain</p>
+    </div>
+    <div id="gainForm">
+    </div>
+  </body>
+  <script src="../scripts/options.js"></script>
 </html>

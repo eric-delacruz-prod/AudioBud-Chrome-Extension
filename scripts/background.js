@@ -157,8 +157,8 @@
         //We draw an oscilloscope reading of the audio
         function draw() {
 
-          // Calling update every time would be way too taxing on program.
-          if(countToWorkAroundSetInterval === 250){
+          // Calling update every time would probably be too taxing on program.
+          if(countToWorkAroundSetInterval === 150){
             update();
             countToWorkAroundSetInterval = 0;
           }
