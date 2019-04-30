@@ -1,6 +1,6 @@
 var port = chrome.runtime.connect();
 var connected;
-let visual = 'TDs';
+let visual;
 let count = 0;
 console.log("Connected");
 
@@ -42,7 +42,7 @@ port.onMessage.addListener(function(message) {
 
 
     // Calling update every time would probably be too taxing on program.
-    if(count === 50){
+    if(count === 10){
       chrome.storage.sync.get(['visuals'], function(result){
         visual = result.visuals;
       });
