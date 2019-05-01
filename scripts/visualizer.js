@@ -95,29 +95,29 @@ port.onMessage.addListener(function(message) {
             recVertHeight = Math.round(data)
             recHorzWidth = Math.round(data)
 
-            if(visual === 'RLs'){
+            if(visual === 'Right-side'){
               //Solid Bars: Right -> Left
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(0,y,recHorzWidth*4,recHorzHeight);
             }
-            else if(visual === 'LRs'){
+            else if(visual === 'Left-side'){
               //Solid Bars: Left -> Right
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*4,recHorzHeight);
             }
-            else if(visual === 'LRRLs'){
+            else if(visual === 'Fissure'){
               //Solid Bars: Left -> Right & Right -> Left
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(0,y,recHorzWidth*2,recHorzHeight);
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recHorzWidth) + "," + (185-recHorzHeight) + "," + (185-recHorzWidth) + ")";
               audioCanvas.ctx.fillRect(audioCanvas.width,y,-recHorzWidth*2,recHorzHeight);
             }
-            else if(visual === 'TDs'){
+            else if(visual === 'Falling'){
               //Solid Bars: Top -> Down
               audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
               audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
             }
-            else if(visual === 'PEs'){
+            else if(visual === 'Pulse'){
               //Pulsing Ellipse: Average Data
               total += Math.round(data);
               if(i == bufferL-1) {
