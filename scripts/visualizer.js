@@ -43,7 +43,7 @@ port.onMessage.addListener(function(message) {
     }
 
     // Calling update every time would probably be too taxing on program.
-    if(count === 10){
+    if(count === 15){
       chrome.storage.sync.get(['visuals'], function(result){
         visual = result.visuals;
       });
