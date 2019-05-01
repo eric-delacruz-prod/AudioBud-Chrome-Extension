@@ -1,7 +1,7 @@
 var port = chrome.runtime.connect();
 var connected;
 
-var visual = 'Right-side';
+var visual = 'Starburst';
 var color = '#000000';
 var count = 0;
 console.log("Connected");
