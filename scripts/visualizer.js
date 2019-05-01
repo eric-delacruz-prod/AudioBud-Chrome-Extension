@@ -108,8 +108,8 @@ port.onMessage.addListener(function(message) {
             }
             else if(visual === 'Falling'){
               //Solid Bars: Top -> Down
-              audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
-              audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*2);
+              audioCanvas.ctx.fillStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertWidth) + "," + (185-recVertHeight) + ")";
+              audioCanvas.ctx.fillRect(x,0,recVertWidth,recVertHeight*3.5);
             }
             else if(visual === 'Pulse'){
               //Pulsing Ellipse: Average Data
