@@ -5,6 +5,7 @@ const kVisuals = ['Falling', 'Right-side','Left-side','Fissure','Pulse','Starbur
 
 const kColors  = ['#000000','#FFFFFF','#323246','#463232',
                   '#324632','#464632','#595963','#767678'];
+                  
 const kName    = ['black','white','purple','maroon',
                   'green','brown','d grey','l grey']
 
