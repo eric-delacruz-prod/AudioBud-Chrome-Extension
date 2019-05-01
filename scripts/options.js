@@ -1,6 +1,6 @@
 
-const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
-                  'highshelf', 'peaking', 'notch', 'allpass'];
+const kFilters = ['Low-pass', 'High-pass', 'Band-pass', 'Low-shelf',
+                  'High-shelf', 'Peaking', 'Notcbh', 'All-pass'];
 const kVisuals = ['Falling', 'Right-side','Left-side','Fissure','Pulse','Starburst'];
 
 const kColors  = ['#000000','#FFFFFF','#323246','#463232',

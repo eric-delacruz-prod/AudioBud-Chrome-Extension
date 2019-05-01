@@ -7,11 +7,11 @@ let testLoop = 0; //Controls values for bounds testing
 
 chrome.storage.sync.set({testRun: false}, function(){});
 //Write default values, otherwise this may crash with infinite float error
-chrome.storage.sync.set({filter: 'allpass'}, function(){});
+chrome.storage.sync.set({filter: 'All-pass'}, function(){});
 chrome.storage.sync.set({frequency: 440}, function(){});
 chrome.storage.sync.set({Q: 1}, function(){});
 chrome.storage.sync.set({Gain: 0}, function(){});
-chrome.storage.sync.set({visuals: 'TDs'});
+chrome.storage.sync.set({visuals: 'Starburt'});
 chrome.storage.sync.set({colors: '#000000'})
 
 
@@ -184,7 +184,7 @@ const printResult = function(isPassed) {
           filter.disconnect()
           audioSourceNode.disconnect()
 
-          if(selectedFilter==="lowpass"){
+          if(selectedFilter==="Low-pass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -193,7 +193,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="highpass"){
+          else if(selectedFilter==="High-pass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -202,7 +202,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="bandpass"){
+          else if(selectedFilter==="Band-pass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -211,7 +211,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="lowshelf"){
+          else if(selectedFilter==="Low-shelf"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -220,7 +220,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="highshelf"){
+          else if(selectedFilter==="High-shelf"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -229,7 +229,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="peaking"){
+          else if(selectedFilter==="Peaking"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -238,7 +238,7 @@ const printResult = function(isPassed) {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="notch"){
+          else if(selectedFilter==="Notch"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
