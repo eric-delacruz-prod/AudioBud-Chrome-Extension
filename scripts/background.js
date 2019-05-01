@@ -385,7 +385,7 @@ const printResult = function(isPassed) {
         function draw() {
 
           // Calling update every time would probably be too taxing on program.
-          if(countToWorkAroundSetInterval === 50){
+          if(countToWorkAroundSetInterval === 100){
             update();
             countToWorkAroundSetInterval = 0;
           }
