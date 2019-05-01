@@ -5,6 +5,8 @@ const kVisuals = ['TDs', 'RLs','LRs','LRRLs','PEs','EBs'];
 
 const kColors  = ['#000000','#FFFFFF','#323246','#463232',
                   '#324632','#464632','#595963','#767678'];
+const kName    = ['black','white','purple','maroon',
+                  'green','brown','d grey','l grey']
 
 function constructOptions(kButtonColors) {
  for (let item of kButtonColors) {
@@ -89,16 +91,18 @@ function constructOptionsVisual(kButtonVisuals) {
  }
 }
 
-function constructOptionsColors(kButtonColors){
+function constructOptionsColors(kButtonColors, kButtonNames){
+  let index = 0;
   for (let item of kColors){
     let button = document.createElement('button');
-    button.innerHTML = item;
+    button.innerHTML = kName[index];
     button.addEventListener('click', function() {
       chrome.storage.sync.set({colors: item}, function(){
         console.log('color is ' + item);
       })
     });
     document.getElementById('buttonColor').appendChild(button);
+    index++;
   }
 }
 
@@ -107,4 +111,4 @@ constructOptionFreq();
 constructOptionQ();
 constructOptionGain();
 constructOptionsVisual(kVisuals);
-constructOptionsColors(kColors);
+constructOptionsColors(kColors, kName);
