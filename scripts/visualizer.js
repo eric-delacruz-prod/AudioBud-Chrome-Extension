@@ -153,8 +153,8 @@ port.onMessage.addListener(function(message) {
             else {
               //Ellipse Bars: Frequency
               var radWidth = Math.PI * 2 / bufferL-100;
-              var barx_end = audioCanvas.width/2 + Math.cos(radWidth * i)*(recVertHeight);
-              var bary_end = 500 + Math.sin(radWidth * i)*(recVertHeight);
+              var barx_end = audioCanvas.width/2 + Math.cos(radWidth * i)*(recVertHeight*2);
+              var bary_end = 500 + Math.sin(radWidth * i)*(recVertHeight*2);
               audioCanvas.ctx.strokeStyle = "rgb(" + (300-recVertHeight) + "," + (185-recVertHeight) + "," + (185-recVertHeight) + ")";
               audioCanvas.ctx.lineWidth = radWidth;
               audioCanvas.ctx.moveTo(audioCanvas.width/2,500);
