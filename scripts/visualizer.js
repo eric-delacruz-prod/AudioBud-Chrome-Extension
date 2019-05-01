@@ -1,10 +1,8 @@
 var port = chrome.runtime.connect();
 var connected;
-
 var visual = 'Starburst';
 var color = '#000000';
 var count = 0;
-console.log("Connected");
 
 port.onMessage.addListener(function(message) {
 
@@ -13,8 +11,6 @@ port.onMessage.addListener(function(message) {
     testRun = result.testRun;
   });
     var active = message.active;
-    console.log(active);
-
     var dataArr = message.data;
     var bufferL = message.bufferLength-150;
     if(!Boolean(connected)) {
@@ -45,8 +41,6 @@ port.onMessage.addListener(function(message) {
         document.body.removeChild(canvasContainer);
 
     }
-
-
 
     // Calling update every time would probably be too taxing on program.
     if(count === 10){

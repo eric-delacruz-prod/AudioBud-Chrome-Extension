@@ -14,7 +14,6 @@ chrome.storage.sync.set({Gain: 0}, function(){});
 chrome.storage.sync.set({visuals: 'Starburt'});
 chrome.storage.sync.set({colors: '#000000'})
 
-
 chrome.contextMenus.create({
   title: "Test Mode",
   id: "testing",
@@ -47,10 +46,7 @@ const printResult = function(isPassed) {
   console.log(isPassed);
 }
 
-  var background = {
-
-
-
+var background = {
   //Initializes listeners
   init: function () {
     //Use the chrome.runtime API
@@ -78,7 +74,6 @@ const printResult = function(isPassed) {
         var selectedFrequency = 440;
         var selectedQValue    = 1;
         var selectedGain      = -6;
-
 
         if (testRun_local == true) {
             ///////////////////
@@ -146,7 +141,6 @@ const printResult = function(isPassed) {
           chrome.storage.sync.get(['Gain'], function(result){
             selectedGain = Math.floor(result.Gain);
           });
-
 
           //////////////////////////
           //SET VALUES FOR TESTING//
@@ -257,7 +251,6 @@ const printResult = function(isPassed) {
           //BOUNDS TESTING////
           ////////////////////
 
-
           if (testRun_local == true) {
 
             if (testLoop == 0) {
@@ -341,7 +334,6 @@ const printResult = function(isPassed) {
           //END OF BOUNDS TESTING//
           //////////////////////////
 
-
           }
 
           ///////////////////
@@ -362,7 +354,6 @@ const printResult = function(isPassed) {
 
           update()
 
-
           //this sets the range
           //too low and the bars start capping out
           analyserNode.maxDecibels = -20
@@ -378,7 +369,6 @@ const printResult = function(isPassed) {
           //Data array of the buffer
           //This is our information we are to display
           var data = new Uint8Array(buffer);
-
 
         var countToWorkAroundSetInterval = 0;
         //We draw an oscilloscope reading of the audio
