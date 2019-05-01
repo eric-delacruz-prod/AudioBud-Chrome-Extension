@@ -88,7 +88,6 @@ port.onMessage.addListener(function(message) {
         var recHorzWidth;
         var x = 0;
         var y = 0;
-        ['Falling', 'Right-side','Left-side','Fissure','Pulse','Starburst']
         var total = 0;
         audioCanvas.ctx.beginPath();
         for (var i = 0; i < bufferL; i++) {
