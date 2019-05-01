@@ -12,6 +12,7 @@ chrome.storage.sync.set({frequency: 440}, function(){});
 chrome.storage.sync.set({Q: 1}, function(){});
 chrome.storage.sync.set({Gain: 0}, function(){});
 chrome.storage.sync.set({visuals: 'TDs'});
+chrome.storage.sync.set({colors: '#000000'})
 
 
 chrome.contextMenus.create({
@@ -384,7 +385,7 @@ const printResult = function(isPassed) {
         function draw() {
 
           // Calling update every time would probably be too taxing on program.
-          if(countToWorkAroundSetInterval === 150){
+          if(countToWorkAroundSetInterval === 50){
             update();
             countToWorkAroundSetInterval = 0;
           }

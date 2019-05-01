@@ -1,10 +1,10 @@
-let page = document.getElementById('buttonDiv');
 
 const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
                   'highshelf', 'peaking', 'notch', 'allpass'];
 const kVisuals = ['TDs', 'RLs','LRs','LRRLs','PEs','EBs'];
 
-
+const kColors  = ['#000000','#FFFFFF','#323246','#463232',
+                  '#324632','#464632','#595963','#767678'];
 
 function constructOptions(kButtonColors) {
  for (let item of kButtonColors) {
@@ -15,7 +15,7 @@ function constructOptions(kButtonColors) {
        console.log('filter is ' + item);
      })
    });
-   page.appendChild(button);
+   document.getElementById('buttonDiv').appendChild(button);
  }
 }
 
@@ -89,8 +89,22 @@ function constructOptionsVisual(kButtonVisuals) {
  }
 }
 
+function constructOptionsColors(kButtonColors){
+  for (let item of kColors){
+    let button = document.createElement('button');
+    button.innerHTML = item;
+    button.addEventListener('click', function() {
+      chrome.storage.sync.set({colors: item}, function(){
+        console.log('color is ' + item);
+      })
+    });
+    document.getElementById('buttonColor').appendChild(button);
+  }
+}
+
 constructOptions(kFilters);
 constructOptionFreq();
 constructOptionQ();
 constructOptionGain();
 constructOptionsVisual(kVisuals);
+constructOptionsColors(kColors);

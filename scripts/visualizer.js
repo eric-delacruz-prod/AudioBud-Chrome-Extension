@@ -1,7 +1,8 @@
 var port = chrome.runtime.connect();
 var connected;
 
-var visual;
+var visual = 'RLs';
+var color = '#000000';
 var count = 0;
 console.log("Connected");
 
@@ -52,6 +53,9 @@ port.onMessage.addListener(function(message) {
       chrome.storage.sync.get(['visuals'], function(result){
         visual = result.visuals;
       });
+      chrome.storage.sync.get(['colors'], function(result){
+        color = result.colors;
+      });
       count = 0;
     }
     else {
@@ -76,7 +80,7 @@ port.onMessage.addListener(function(message) {
     var bufferL = message.bufferLength-40;
     var frame = requestAnimationFrame(function() {
         audioCanvas.ctx.clearRect(0,0,audioCanvas.width,1600);
-        audioCanvas.ctx.fillStyle = "rgb(0, 0, 00)";
+        audioCanvas.ctx.fillStyle = color;
         audioCanvas.ctx.fillRect(0,0,audioCanvas.width,1600);
         var recVertWidth = (audioCanvas.width / bufferL);
         var recVertHeight;
@@ -120,9 +124,9 @@ port.onMessage.addListener(function(message) {
                 var gradient = audioCanvas.ctx.createLinearGradient(0, 0, audioCanvas.width, 0);
                 gradient.addColorStop("0", "rgb(107, 220, 254)");
                 gradient.addColorStop("1.0", "rgb(200, 104, 191)");
-                
+
                 var avg = total/bufferL;
-                
+
                 audioCanvas.ctx.strokeStyle = gradient;
                 audioCanvas.ctx.arc(audioCanvas.width/2,500,avg/2, 0, 2 * Math.PI);
                 audioCanvas.ctx.stroke();
@@ -163,7 +167,7 @@ port.onMessage.addListener(function(message) {
               audioCanvas.ctx.closePath();
               audioCanvas.ctx.beginPath();
             }
-            
+
             x += recVertWidth;
             y += recHorzHeight;
         }
