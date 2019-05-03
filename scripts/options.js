@@ -1,24 +1,28 @@
 
-const kFilters = ['Low-pass', 'High-pass', 'Band-pass', 'Low-shelf',
-                  'High-shelf', 'Peaking', 'Notcbh', 'All-pass'];
+const kFilters = ['lowpass', 'highpass', 'bandpass', 'lowshelf',
+                  'highshelf', 'peaking', 'notch', 'allpass'];
+const kFiltersName = ['Low-pass', 'High-pass', 'Band-pass', 'Low-shelf',
+                  'High-shelf', 'Peaking', 'Notch', 'All-pass'];
 const kVisuals = ['Falling', 'Right-side','Left-side','Fissure','Pulse','Starburst'];
 
 const kColors  = ['#000000','#FFFFFF','#323246','#463232',
                   '#324632','#464632','#595963','#767678'];
-                  
+
 const kName    = ['Black','White','Purple','Maroon',
                   'Green','Brown','Dark Grey','Light Grey']
 
-function constructOptions(kButtonColors) {
+function constructOptions(kButtonColors, kButtonNames) {
+    let index = 0;
  for (let item of kButtonColors) {
    let button = document.createElement('button');
-   button.innerHTML = item;
+   button.innerHTML = kButtonNames[index];
    button.addEventListener('click', function() {
      chrome.storage.sync.set({filter: item}, function() {
        console.log('filter is ' + item);
      })
    });
    document.getElementById('buttonDiv').appendChild(button);
+       index++;
  }
 }
 
@@ -28,6 +32,7 @@ function constructOptionFreq(){
   textboxFreq.min = 10;
   textboxFreq.max = 22050;
   textboxFreq.value = 440;
+  textboxFreq.step  = 100;
   textboxFreq.addEventListener('click', function() {
     chrome.storage.sync.set({frequency: textboxFreq.value}, function() {
       console.log('frequency is ' + textboxFreq.value);
@@ -96,7 +101,7 @@ function constructOptionsColors(kButtonColors, kButtonNames){
   let index = 0;
   for (let item of kColors){
     let button = document.createElement('button');
-    button.innerHTML = kName[index];
+    button.innerHTML = kButtonNames[index];
     button.addEventListener('click', function() {
       chrome.storage.sync.set({colors: item}, function(){
         console.log('color is ' + item);
@@ -107,7 +112,7 @@ function constructOptionsColors(kButtonColors, kButtonNames){
   }
 }
 
-constructOptions(kFilters);
+constructOptions(kFilters, kFiltersName);
 constructOptionFreq();
 constructOptionQ();
 constructOptionGain();

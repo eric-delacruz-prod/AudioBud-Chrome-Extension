@@ -178,7 +178,7 @@ var background = {
           filter.disconnect()
           audioSourceNode.disconnect()
 
-          if(selectedFilter==="Low-pass"){
+          if(selectedFilter==="lowpass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -187,7 +187,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="High-pass"){
+          else if(selectedFilter==="highpass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -196,7 +196,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="Band-pass"){
+          else if(selectedFilter==="bandpass"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -205,7 +205,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="Low-shelf"){
+          else if(selectedFilter==="lowshelf"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -214,7 +214,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="High-shelf"){
+          else if(selectedFilter==="highshelf"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -223,7 +223,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="Peaking"){
+          else if(selectedFilter==="peaking"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -232,7 +232,7 @@ var background = {
             filter.connect(analyserNode);
             filter.connect(audioContext.destination);
           }
-          else if(selectedFilter==="Notch"){
+          else if(selectedFilter==="notch"){
             audioSourceNode.connect(filter);
             filter.type = selectedFilter;
             filter.frequency.value = selectedFrequency;
@@ -375,7 +375,7 @@ var background = {
         function draw() {
 
           // Calling update every time would probably be too taxing on program.
-          if(countToWorkAroundSetInterval === 100){
+          if(countToWorkAroundSetInterval === 30){
             update();
             countToWorkAroundSetInterval = 0;
           }
