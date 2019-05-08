@@ -3,7 +3,10 @@ var connected;
 var visual = 'Starburst';
 var color = '#000000';
 var count = 0;
-
+/**
+ * This function takes in data and outputs visual
+ * @param {function} input a function that receives the sound data
+ */
 port.onMessage.addListener(function(message) {
 
   let testRun = false;

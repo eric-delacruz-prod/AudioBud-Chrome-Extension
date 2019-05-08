@@ -21,6 +21,10 @@ chrome.contextMenus.create({
   type: "checkbox"
 });
 
+/**
+ * This function turns on test mode.
+ * @param {function} APIfunction passes in data values
+ */
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "testing") {
     //Get current value of global testRun
@@ -46,6 +50,10 @@ const printResult = function(isPassed) {
   console.log(isPassed);
 }
 
+/**
+ * Initializes API functions from audio web capture
+ * @returns {string} value chooses visualizer.
+ */
 var background = {
   //Initializes listeners
   init: function () {
@@ -415,6 +423,11 @@ var background = {
 
 var pressed;
 
+/**
+ * This function adds one to its input.
+ * @param {function} inputs a function that passes back a tab interaction
+ * @returns {boolean} notifies if the extension has been pressed or not
+ */
 chrome.browserAction.onClicked.addListener(function(activeTab) {
   if(!Boolean(pressed)){
     console.log("on press");
