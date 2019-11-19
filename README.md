@@ -23,3 +23,4 @@ A chrome extension that captures an audio stream from the active tab and display
 * **Eric Seals**
 * **Kevin Dinh**
 * **Fan Ye**
+* **Even Trout**
